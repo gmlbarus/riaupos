@@ -1,0 +1,11 @@
+.seat-row{
+margin:5px 0;
+}
+
+.seat-row:first-child{
+margin:0 !important;
+}
+
+.blank-row{
+padding-bottom:0px !important;
+}
