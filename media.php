@@ -1,7 +1,7 @@
 <?php
   ini_set('display_errors', 0);
   ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
+  error_reporting(0);
   session_start();
   include "config/koneksi.php";
   include "config/fungsi_indotgl.php";
@@ -36,10 +36,10 @@ if($_POST[login]!=""){
 	$r			= mysql_fetch_array($query);
 
 	if($jml > 0){
-		$_SESSION[basyenkuser]   	= $r[username];
+		$_SESSION[basyenkuser]   	  = $r[username];
 		$_SESSION[basyenkpassword]  = $r[pass];
 		$_SESSION[basyenklevel]   	= $r[grup];
-		$_SESSION[basyenknama]   	= $r[nama];
+		$_SESSION[basyenknama]   	  = $r[nama];
 
 		echo "<script>alert('Selamat datang di Sistem Registrasi Berlangganan Koran Riau Pos...'); window.location = 'media.php?page=home'</script>";
 	}
