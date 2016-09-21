@@ -1,161 +1,258 @@
 <?php
-session_start();
+  error_reporting(0);
+  session_start();
+  include "config/koneksi.php";
+  include "config/fungsi_indotgl.php";
+  include "config/class_paging.php";
+  include "config/fungsi_combobox.php";
+  include "config/library.php";
+  include "config/fungsi_autolink.php";
+  include "config/fungsi_rupiah.php";
+  include "config/fungsi_thumb_pengguna.php";
+  include "config/fungsi_seo.php";
+  include "config/fungsi_seat.php";
+  include "config/fungsi_fiktif.php";
 
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+if($_POST[login]!=""){
+	function antiinjection($data){
+		$filter_sql = mysql_real_escape_string(stripslashes(strip_tags(htmlspecialchars($data,ENT_QUOTES))));
+		return $filter_sql;
+	}
 
-if (empty($_SESSION['namauser']) AND empty($_SESSION['passuser'])){
-  	echo "
-	<title>Hak Akses Ditolak</title>
-	<link href='css/screen.css' rel='stylesheet' type='text/css'><link href='css/reset.css' rel='stylesheet' type='text/css'>";
-    echo "
-  	<div class='login-box'>
-	<div class='login-border'>
-	<div class='login-style'><center><br><br><b>AKSES DIKUNCI! </b><br>
-        Maaf, untuk masuk <b>Halaman Administrator</b><br>
-        anda harus <b>Login</b> dahulu!<br><br>";
-		echo "<div> <a href='index.php'><img src='images/kunci.png'  height=147 width=176><br><br></a>
-             </div>";
-  	echo "<input type=button class='tombol' value='LOGIN DISINI' onclick=location.href='index.php'></a></center><br>
-  	</div>
-	</div>
-	</div>";
+	$username 	= antiinjection($_POST[username]);
+	$password 	= antiinjection($_POST[password]);
+
+	$query		= mysql_query("SELECT * from login
+							   JOIN profil ON login.username=profil.email
+							   WHERE login.username='$username' AND login.pass=md5('$password') AND login.status='Y' AND login.grup='2'");
+	$jml		= mysql_num_rows($query);
+	$r			= mysql_fetch_array($query);
+
+	if($jml > 0){
+		$_SESSION[basyenkuser]   	= $r[username];
+		$_SESSION[basyenkpassword]  = $r[pass];
+		$_SESSION[basyenklevel]   	= $r[grup];
+		$_SESSION[basyenknama]   	= $r[nama];
+
+		echo "<script>alert('Selamat datang di Sistem Registrasi Berlangganan Koran Riau Pos...'); window.location = 'media.php?page=home'</script>";
+	}
+	else{
+		echo "<script>alert('Autentikasi user gagal...'); window.location = 'media.php?page=home'</script>";
+	}
 }
-else{
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#" class="no-js" lang="id">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<meta name="description"  content=""/>
-<meta name="keywords" content=""/>
-<meta name="robots" content="ALL,FOLLOW"/>
-<meta http-equiv="imagetoolbar" content="no"/>
-<title>Administrator Area</title>
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-<link rel="stylesheet" href="css/reset.css" type="text/css"/>
-<link rel="stylesheet" href="css/screen.css" type="text/css"/>
-<link rel="stylesheet" href="css/fancybox.css" type="text/css"/>
-<link rel="stylesheet" href="css/jquery.wysiwyg.css" type="text/css"/>
-<link rel="stylesheet" href="css/jquery.ui.css" type="text/css"/>
-<link rel="stylesheet" href="css/visualize.css" type="text/css"/>
-<link rel="stylesheet" href="css/visualize-light.css" type="text/css"/>
-<link rel="stylesheet" type="text/css" href="../css/gold/gold.css" />
-<link rel="stylesheet" type="text/css" href="../css/jscal2.css" />
-<link rel="stylesheet" type="text/css" href="../css/border-radius.css" />
+	<meta name="description" content="Registrasi Berlangganan Koran Riau Pos Online" />
+	<meta name="keywords" content="Registrasi Berlangganan Koran Riau Pos online" />
+	<meta name="author" content="" />
+	<meta charset="UTF-8" />
+	<link rel="icon" href="images/favicon2.ico" type="image/x-icon" />
+	<title>SIM | Berlangganan Koran Riau Pos Online</title>
 
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jquery.visualize.js"></script>
-<script type="text/javascript" src="js/jquery.wysiwyg.js"></script>
-<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
-<script type="text/javascript" src="js/jquery.fancybox.js"></script>
-<script type="text/javascript" src="js/jquery.idtabs.js"></script>
-<script type="text/javascript" src="js/jquery.datatables.js"></script>
-<script type="text/javascript" src="js/jquery.jeditable.js"></script>
-<script type="text/javascript" src="js/jquery.ui.js"></script>
-<script type="text/javascript" src="../js/jscal2.js"></script>
-<script type="text/javascript" src="../js/lang/en.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/jscal2.css" />
+	<link rel="stylesheet" type="text/css" href="css/border-radius.css" />
+	<link rel="stylesheet" type="text/css" href="css/gold/gold.css" />
+	<link rel="stylesheet" type="text/css" href="css/far-min.css" />
+	<link rel="stylesheet" type="text/css" href="css/seatbook.css" />
+	<!--[if IE 7]>
+		<link href="css/seat-ie7.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
 
-<script type="text/javascript" src="js/excanvas.js"></script>
-<script type="text/javascript" src="js/cufon.js"></script>
-<script type="text/javascript" src="js/Geometr231_Hv_BT_400.font.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="js/slide.js"></script>
 
-<script language="javascript" type="text/javascript">
-    tinyMCE_GZ.init({
-    plugins : 'style,layer,table,save,advhr,advimage, ...',
-		themes  : 'simple,advanced',
-		languages : 'en',
-		disk_cache : true,
-		debug : false
-});
-</script>
-<script language="javascript" type="text/javascript"
-src="../tinymcpuk/tiny_mce_src.js"></script>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/jscal2.js"></script>
+	<script type="text/javascript" src="js/lang/en.js"></script>
 
 
-<style type="text/css">
-<!--
-.style3 {
-	color: #62A621;
-	font-weight: bold;
-}
--->
-</style>
+	<script language="javascript">
+		function validasi(form_daftar){
+		  if (form_daftar.nama_pengguna.value == ""){
+			alert("Anda belum mengisikan Nama Pengguna.");
+			form.nama_pengguna.focus();
+			return (false);
+		  }
+		  if (form_daftar.nama_lengkap.value == ""){
+			alert("Anda belum mengisikan Nama Lengkap.");
+			form.nama_lengkap.focus();
+			return (false);
+		  }
+		  return (true);
+		}
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('a.login-window').click(function() {
+
+				// Getting the variable's value from a link
+				var loginBox = $(this).attr('href');
+
+				//Fade in the Popup and add close button
+				$(loginBox).fadeIn(300);
+
+				//Set the center alignment padding + border
+				var popMargTop = ($(loginBox).height() + 24) / 2;
+				var popMargLeft = ($(loginBox).width() + 24) / 2;
+
+				$(loginBox).css({
+					'margin-top' : -popMargTop,
+					'margin-left' : -popMargLeft
+				});
+
+				// Add the mask to body
+				$('body').append('<div id="mask"></div>');
+				$('#mask').fadeIn(300);
+
+				return false;
+			});
+
+			// When clicking on the button close or the mask layer the popup closed
+			$('a.close, #mask').live('click', function() {
+			  $('#mask , .login-popup').fadeOut(300 , function() {
+				$('#mask').remove();
+			});
+			return false;
+			});
+		});
+	</script>
+
+	<!--[if lte IE 6]>
+	<script type="text/javascript" src="/js/pngfix/supersleight-min.js"></script>
+	<![endif]-->
 </head>
+
+<!-- Batas Head ################################ !-->
 
 <body>
 
-  <div class="sidebar">
-		<div class="logo clear" align="center"></div>
+<div id="toppanel">
+	<div id="panel">
+		<div class="content clearfix">
+			<div class="left">
+				<form action="<?php $_SERVER[PHP_SELF]; ?>" name="login1" class="clearfix" method="post">
+					<h2>Member Login</h2>
+					<div class="input text"><label for="LoginPromptLogin">Username</label><input name="username" class="field" type="text" id="LoginPromptLogin" required/></div>
+					<div class="input password"><label for="LoginPromptPassword">Password</label><input name="password" class="field" type="password" id="LoginPromptPassword" required/></div>
 
-		<div class="menu">
-			<ul>
-				<li><a href="#">MENU UTAMA</a>
-					<ul><?php include "menu.php"; ?></ul>
-				</li>
-				<li><a href="#">MANAJEMEN ADMIN</a>
-					<ul><?php include "menu3.php"; ?></ul>
-				</li>
-			</ul>
-	  </div>
-	</div>
-
-
-	<div class="main"> <!-- *** mainpage layout *** -->
-	<div class="main-wrap">
-		<div class="header clear">
-			<ul class="links clear">
-			<li><a href="?module=home"><img src="images/home.png" alt="" class="icon" /> <span class="text">Home</span></a></li>
-			<li><a href="logout.php"><img src="images/ico_logout_24.png" alt="" class="icon" /> <span class="text">Logout</span></a></li>
-			</ul>
-		</div>
-
-		<div class="page clear">
-			<!-- MODAL WINDOW -->
-			<div id="modal" class="modal-window">
-				<!-- <div class="modal-head clear"><a onclick="$.fancybox.close();" href="javascript:;" class="close-modal">Close</a></div> -->
-
-
+					<div class="clear"></div>
+					<div class="submit"><input class="bt_login" type="submit" value="Login" name="login"/></div>
+				</form>
 			</div>
 
-			<!-- CONTENT BOXES -->
-			<!-- end of content-box -->
-<div class="notification note-success">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-      <td width="2%">&nbsp;</td>
-      <td width="95%"><?php include "content.php"; ?></td>
-      <td width="3%">&nbsp;</td>
-    </tr>
-  </table>
-</div>
-			<div class="clear">
-				<!-- end of content-box -->
+			<div class="left">
+				<h2>Selamat Datang di SIM Berlangganan Koran Riau Pos Online</h2>
+				<p class="grey">Kami adalah siap melayani......................</p>
+				<br>
+			</div>
 
-		</div><!-- end of page -->
-
-		<div class="footer clear"></div>
+			<div class="left right">
+				<h2>Belum jadi Anggota?</h2>
+				<p class="grey">Jika anda belum teregister di sistem kami...</p>
+				<p class="grey">Anda menginginkan informasi promo dan manfaat lebih lainnya dari kami ? </p>
+				<p class="grey">Silahkan daftar disini</p>
+				<br>
+				<div class="submit">
+					<input type="button" value="Registrasi" class="bt_register" onclick="window.location.href='media.php?page=registrasi';">
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
+
+<div id="container" class="fullwidth center">
+	<header class="fullwidth center">
+		<div id="header-center" class="right">
+			<ul id="main-menu">
+				<li class="home">	<a href="media.php?page=home">home<p>kembali menuju halaman utama</p></a></li>
+                <li class="promo">	<a href="media.php?page=promo">promo<p>informasi promo disini</p></a></li>
+				<li class="jadwal">	<a href="media.php?page=jadwal">jadwal & tarif<p>informasi jadwal pengiriman koran</p></a></li>
+				<li class="makanan"><a href="media.php?page=survey">survey loyalitas</a>
+	              <p>isi data survey</p>
+	      </a></li>
+				<li class="agen">	<a href="media.php?page=agen">agen koran
+		        <p>daftar agen kami</p></a></li>
+				<?php
+                if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isset($_SESSION[basyenklevel])){
+					echo "<li class='login'><a href='media.php?page=logout' style='margin-left:-7px;'>Logout</a><a href='#' id='close' >Close</a></li>";
+				} else {
+					echo "<li class='login'><a href='#' id='toogle'>Login</a><a href='#' id='close' >Close</a></li>";
+				}
+                ?>
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</header>
+	<div id="content" class="fullwidth center">
+		<div id="color-line" style="background-color: #000000">
+			<?php
+				if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isset($_SESSION[basyenklevel])){
+				echo "
+					<span>&nbsp<b>Hai ".strtoupper($_SESSION[basyenknama])." |</b></span>
+					<span><a href='media.php?page=akun'>akun saya</a></span>
+					<span><a href='media.php?page=ubah-password'>ubah password</a></span>
+					<span><a href='media.php?page=tiket'>Koran</a></span>
+					<span><a href='media.php?page=stop'>Stop Berlangganan</a></span>";
+
+				}
+			?>
+		</div>
+
+		<div id="main-content">
+			<div id="content-left" class="left padding-title">
+				<article>
+					<div id="article-content">
+						<!-- Awal Konten Tengah ################################ !-->
+						<center><?php include "content.php"; ?></center>
+						<!-- Akhir Konten Tengah ################################ !-->
+					</div>
+				 </article>
+			</div>
+
+			<div id="widget-area" class="header-cart">
+			<?php
+				include 'widget/logo.php';
+				include 'widget/pemesanan.php';
+				include 'widget/promo.php';
+			?>
+			</div>
+
+			<div class="clear"></div>
+		</div>
 	</div>
 </div>
-<script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-12958851-7']);
-  _gaq.push(['_trackPageview']);
+<!-- Batas Footer ################################ !-->
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+<footer>
+	<div class="container fullwidth center">
+		<div id="footer-white"></div>
+		<ul id="footer-menu">
+			<a href="media.php?page=home">			Home</a> |
+			<a href="media.php?page=profil">		Tentang Kami</a> |
+			<a href="media.php?page=simulasi">	Simulasi</a> |
+			<a href="media.php?page=saran-kritik">	Saran dan Kritik</a> |
+			<a href="media.php?page=faq">			FAQ</a> |
+			<a href="media.php?page=tindak-lanjut">			Tindak Lanjut </a>
 
-</script>
+			<div class="clear"></div>
+		</ul>
+		<div class="clear"></div>
+		<div id="copyright" class="left">
+			Copyright &copy; 2016 - <a href="#">eben hezer</a> | Sistem berlanggana Koran Online
+		</div>
+		<div class="clear"></div>
+	</div>
+</footer>
 </body>
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8">
 </html>
-<?php
-}
-?>
