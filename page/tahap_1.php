@@ -1,22 +1,15 @@
 <?php
 if($_POST[cari]!=""){
 	$_SESSION[tahap]	= 2;
-	$_SESSION['invoice'] = $_POST['invoice'];
-	$_SESSION['koran_1'] = $_POST['koran_1'];
-	$_SESSION['koran_2'] = $_POST['koran_2'];
-
-
-	$_SESSION['metode_pembayaran'] = $_POST['metode_pembayaran'];
-	$_SESSION['jumlah'] = $_POST['jumlah'];
-	$_SESSION['tipe'] = $_POST['tipe'];
-	$_SESSION['harga'] = $_POST['harga'];
-
-
+	$_SESSION[trip]		= $_POST[trip];
+	$_SESSION[media]		= $_POST[media];
+	$_SESSION[media2]		= $_POST[media2];
+	$_SESSION[pergi]	= $_POST[pergi];
+	if ($_SESSION[trip]=='return') $_SESSION[pulang] = $_POST[pulang];
+	
 	echo "<script>window.location = 'media.php?page=pemesanan&tahap=2'</script>";
 }
 ?>
-
-<?php var_dump($_SESSION) ?>
 
 <script language="javascript">
 function Right(str, n){
@@ -35,38 +28,12 @@ var day 		= Right(('0'+currentDate.getDate()), 2)
 var month 		= Right(('0'+(currentDate.getMonth() + 1)),2)
 var year 		= currentDate.getFullYear()
 var tanggal 	= year+'-'+month+'-'+day
-
+	
 $(document).ready(function() {
     $(".pp").show()
 });
 function getResults(elem) {
     elem.checked && elem.value == "return" ? $(".pp").show() : $(".pp").hide();
-};
-
-function setHarga() {
-	var type = document.getElementById('tipe').value;
-	var jumlah = document.getElementById('jumlah').value;
-	// alert(type);
-	switch (type) {
-		case 'platinum':
-				var harga = 99000 * jumlah;
-				document.getElementById('harga').value = 'Rp. '+harga+',-';
-				document.getElementById('harga2').value = 'Rp. '+harga+',-';
-				break;
-		case 'silver':
-				var harga = 30000 * jumlah;
-				document.getElementById('harga').value = 'Rp. '+harga+',-';
-				document.getElementById('harga2').value = 'Rp. '+harga+',-';
-				break;
-		case 'gold':
-				var harga = 60000 * jumlah;
-				document.getElementById('harga').value = 'Rp. '+harga+',-';
-				document.getElementById('harga2').value = 'Rp. '+harga+',-';
-				break;
-		default:
-				alert('Pilih tipe berlangganan terlebih dahulu');
-				break;
-	}
 };
 
 function validasi(form){
@@ -75,110 +42,95 @@ function validasi(form){
 		form.media.focus();
 		return (false);
 	}
-
-	if (form.pergi.value == ""){
-		alert("Tanggal pergi masih kosong...");
-		form.pergi.focus();
-		return (false);
-	}
-
-	if (form.pergi.value < tanggal){
-		alert("Tanggal pergi lebih kecil...");
-		form.pergi.focus();
-		return (false);
-	}
-
-	if (form.trip.value == "return"){
-		if (form.pulang.value == ""){
-			alert("Tanggal pulang masih kosong...");
-			form.pulang.focus();
-			return (false);
-		}
-		if (form.pulang.value < tanggal || form.pulang.value < form.pergi.value){
-			alert("Tanggal pulang lebih kecil...");
-			form.pulang.focus();
-			return (false);
-		}
-
-	}
-
-	if (form.dewasa.value==0 && form.anak.value==0 && form.bayi.value==0){
-		alert("Penumpang masih kosong...");
-		form.dewasa.focus();
-		return (false);
-	}
-
+	
   return (true);
 }
 </script>
 
 <h1></h1>
-
-
+<hr color='#c5a430' size='1'>
 <div class="register form">
-	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">
-
-	<div class="search-form-top">
-		<?php
-		function is_set($session, $default){
-			return isset($_SESSION[$session]) ? $_SESSION[$session] : $default;
-		}
-
-		function is_selected($session, $opt){
-			echo $_SESSION[$session] == $opt ? "value='{$opt}' selected" : "value='{$opt}'" ;
-		}
-			$invoice = is_set('invoice', bin2hex(openssl_random_pseudo_bytes(6)));
-		?>
-		<h3>Invoice # <?php echo $invoice ?></h3>
-		<input type="hidden" name="invoice" value="<?php echo $invoice?>">
-	</div>
-
+	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" style="background: url('images/ckapal.jpg') repeat; opacity: 0.6; filter: alpha(opacity=60);" method="post" onSubmit="return validasi(this)">
+	
+	<div class="row" id="#">
+	<span> Koran Utama </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp; Riau Pos </div>
 	<div class="clear"></div>
-
-	<hr color='#c5a430' size='1'>
-
-	<!-- Koran Utama -->
-	<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
-		<div style="width:20%; float: left">Koran Utama :</div>
-		<div style="width:80%"><b>Riau Pos</b></div>
-	</div>
-
-	<div class="clear"></div>
-
-	<!-- Koran Tambahan Pertama -->
+	
 	<div class="clearfix">
-		<div class="input text"><label for="nama">Koran Tambahan Pertama</label>
-			<select class="" name="koran_1" id="koran_1">
-				<option>-Pilihan 1-</option>
-				<option <?php is_selected('koran_1', 'kompas') ?>>Kompas</option>
-				<option <?php is_selected('koran_1', 'analisa') ?>>Analisa</option>
-				<option <?php is_selected('koran_1', 'posmetro') ?>>Pos Metro</option>
-			</select>
-		</div>
+        <div class="left">
+			<div class="input textarea">
+		        <hr></hr>
+		        <span> Koran Tambahan</span> &nbsp; &nbsp; : &nbsp;
+				<select name="media" id="media">
+					<?php
+					echo "<option value='0' selected='selected'>-- Koran Tambahan Pertama  --</option>";
+					$tampil=mysql_query("SELECT deskripsi,deskripsi FROM konten WHERE grup='media'");
+					while($p=mysql_fetch_array($tampil)){
+						echo "<option value='$p[deskripsi]'>$p[deskripsi]</option>";
+					}
+					?>
+				</select>
+			</div>
+    	</div>
 	</div>
 
-	<div class="clear"></div>
+<div class="clearfix">
+        <div class="left">
+			<div class="input textarea">
+		        <hr></hr>
+		        <span> Koran Tambahan</span> &nbsp; &nbsp; : &nbsp;
+				<select name="media2" id="media2">
+					<?php
+					echo "<option value='0' selected='selected'>-- Koran Tambahan Kedua  --</option>";
+					$tampil=mysql_query("SELECT deskripsi,deskripsi FROM konten WHERE grup='media2'");
+					while($p=mysql_fetch_array($tampil)){
+						echo "<option value='$p[deskripsi]'>$p[deskripsi]</option>";
+					}
+					?>
+				</select>
+			</div>
+    	</div>
+	</div>
 
-	<!-- Koran Tambahan Kedua -->
 	<div class="clearfix">
-		<div class="input text"><label for="nama">Koran Tambahan Kedua</label>
-			<select class="" name="koran_2" id="koran_2">
-				<option>-Pilihan 2-</option>
-				<option <?php is_selected('koran_2', 'kompas') ?>>Kompas</option>
-				<option <?php is_selected('koran_2', 'analisa') ?>>Analisa</option>
-				<option <?php is_selected('koran_2', 'posmetro') ?>>Pos Metro</option>
-			</select>
-		</div>
+        <div class="left">
+			<div class="input textarea">
+			<hr></hr>
+		        <span> Pembayaran Via </span> &nbsp; &nbsp; &nbsp;:  &nbsp; &nbsp; &nbsp;
+				<select name="media2" id="media2">
+					<?php
+					echo "<option value='0' selected='selected'>-- Payment  --</option>";
+					$tampil=mysql_query("SELECT deskripsi,deskripsi FROM konten WHERE grup='via'");
+					while($p=mysql_fetch_array($tampil)){
+						echo "<option value='$p[deskripsi]'>$p[deskripsi]</option>";
+					}
+					?>
+				</select>
+			</div>
+    	</div>
 	</div>
+<br/> <br/>
 
-	<div class="clear"></div>
+<div class="row" id="#">
+	<span> Kode unik </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: &nbsp; 
+	<?php
+	$unik=mt_rand(125, 455);
+	echo mt_rand(225, 355);
+	echo $unik;
+	?> </div>
 
-	<div style="margin:10px">
-		<font color="#cc0000">*</font>) Untuk order radar lain silahkan klik di <a href=#>sini</a>
+
+	<div class="left">
+		<div class="input text">
+			<input name="pergi" size="18" type="text" id="pergi-inputField" placeholder="Total Yang Harus Dibayar"/>
+			<img src="images/be_calendar.gif" id="pergi-trigger" style="margin-right:30px;">
+			<script>
+				Calendar.setup({
+					trigger    : "pergi-trigger",
+					inputField : "pergi-inputField"
+				});
+			</script>
 	</div>
-
-	<div class="clear"></div>
-
-	<div class="clear"></div>
-	<div class="submit"><input type="submit" value="Lanjutkan" name="cari"/></div></form>
+   	<div class="clear"></div>
+	<div class="submit"><input type="submit" value="Lanjut" name="cari"/></div></form>
 </div>

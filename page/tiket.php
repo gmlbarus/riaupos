@@ -8,7 +8,7 @@ if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isse
 		} );
 	} );</script>
 
-	<h1>Tiket</h1>
+	<h1>Koran</h1>
 	<hr color='#c5a430' size='1'>
 
 	<?php

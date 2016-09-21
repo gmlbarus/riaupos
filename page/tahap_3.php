@@ -8,94 +8,62 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 			$_SESSION[nama_p][] 	= $_POST['nama_'.$p];
 			$_SESSION[jk_p][] 		= $_POST['jk_'.$p];
 		}
-
+		
 		$_SESSION[tahap] = 4;
 		echo "<script>window.location = 'media.php?page=pemesanan&tahap=4'</script>";
 		//echo "<script>window.location = 'page/tahap_3.php'</script>";
 	}
 ?>
-
+	
 <div class="register form">
-	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">
-
-	<div class="search-form-top">
+	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post">
 		<?php
-		function is_set($session, $default){
-			return isset($_SESSION[$session]) ? $_SESSION[$session] : $default;
-		}
-
-		function is_selected($session, $opt){
-			echo $_SESSION[$session] == $opt ? "value='{$opt}' selected" : "value='{$opt}'" ;
-		}
-			$invoice = is_set('invoice', bin2hex(openssl_random_pseudo_bytes(6)));
-		?>
-		<h3>Invoice # <?php echo $invoice ?></h3>
-		<input type="hidden" name="invoice" value="<?php echo $invoice?>">
-	</div>
-
-	<div class="clear"></div>
-
-	<hr color='#c5a430' size='1'>
-
-	<div class="clear"></div>
-
-	<!-- Pembayaran VIA -->
-	<div class="clearfix">
-		<div class="input text"><label for="pembayaran">Pembayaran via</label>
-			<select class="" name="pembayaran" id="pembayaran">
-				<option>-Metode Pembayaran-</option>
-				<option <?php is_selected('pembayaran', 'atm') ?>>ATM</option>
-				<option <?php is_selected('pembayaran', 'kartu_kredit') ?>>Kartu Kredit</option>
-				<option <?php is_selected('pembayaran', 'promo') ?>>Promo</option>
-			</select>
+		for($d=0; $d<$_SESSION[dewasa]; $d++) $pelanggan[] = 'dewasa';
+		for($a=0; $a<$_SESSION[anak]; $a++) $pelanggan[] = 'anak';
+		for($b=0; $b<$_SESSION[bayi]; $b++) $pelanggan[] = 'bayi';
+		
+		$jml_penumpang = $_SESSION[dewasa]+$_SESSION[anak]+$_SESSION[bayi];
+		for($i=1; $i<=$jml_penumpang; $i++){
+		echo "
+		<input name='kategori_$i' type='hidden' id='kategori_$i' value='".$pelanggan[$i-1]."'/>
+		<h3 class='orangetext' style='color: #000000'>pelanggan $i - ".strtoupper($pelanggan[$i-1])."</h3>
+		<hr color='#c5a430' size='1'>
+		<div class='clearfix'>
+			<div class='left'>
+				<div class='input text'>
+					<div class='input text'>
+						<label for='nama_$i'>Nama :</label>
+						<input name='nama_$i' required='required' size='30' type='text' id='nama_$i'/>
+					</div>
+				</div>
+			</div>
+			
+			<div class='left'>
+				<div class='input textarea'>
+					<label for='jk_$i'>Jenis Kelamin :</label>
+					<select name='jk_$i' id='jk_$i'>";
+						$tampil=mysql_query("SELECT * FROM konten WHERE grup='jk'");
+						while($p=mysql_fetch_array($tampil)){
+							echo "<option value='$p[deskripsi]'>$p[deskripsi]</option>";
+						}
+		echo "				
+					</select>
+				</div>
+			</div>
 		</div>
-	</div>
-
-	<div class="clear"></div>
-
-	<!-- Harga -->
-	<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
-		<div style="width:20%; float: left">harga</div>
-		<div style="width:80%">: <b>79.000</b></div>
-	</div>
-
-	<div class="clear"></div>
-
-	<!-- Sebanyak -->
-	<div class="clearfix">
-		<div class="input text"><label for="nama">Sebanyak</label>
-			<select style="width:20%; float: left" name="sebanyak" id="sebanyak">
-				<?php
-				for ($i=1; $i < 99; $i++) {
-					echo "<option ";
-					is_selected('sebanyak', $i);
-					echo ">{$i} x</option>";
-				}
-				?>
-			</select>
-	</div>
-
-	<div class="clear"></div>
-
-	<!-- Nominal Unik -->
-	<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
-		<div style="width:20%; float: left">Nominal Unik</div>
-		<?php $unik = rand(11, 99); ?>
-		<div style="width:80%">: <b><?php echo $unik ?></b></div>
-		<input type="hidden" name="nominal_unik" value="<?php echo $unik; ?>"/>
-	</div>
-
-	<div class="clear"></div>
-
-	<div class="clear"></div>
-
-	<div class="clear"></div>
-	<div class="submit"><input type="submit" value="Order" name="lanjut"/></div></form>
+		<br>
+		";
+		}
+		?>
+		
+		<input name='jml_penumpang' type='hidden' id='jml_penumpang' value='<?php echo $jml_penumpang; ?>'/>
+		<div class="clear"></div>
+		<div class="submit"><input type="submit" value="Lanjutkan" name="lanjut"/></div>
+	</form>
 </div>
-
+<div class="clear"></div>
+<div class='div-shadow'></div>
+	
 <?php
-}
-else{
-	echo "<script>history.back();</script>";
 }
 ?>

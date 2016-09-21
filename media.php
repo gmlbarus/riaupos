@@ -1,8 +1,6 @@
-<?php
-  ini_set('display_errors', 0);
-  ini_set('display_startup_errors', 1);
+<?php 
   error_reporting(0);
-  session_start();
+  session_start();	
   include "config/koneksi.php";
   include "config/fungsi_indotgl.php";
   include "config/class_paging.php";
@@ -14,32 +12,27 @@
   include "config/fungsi_seo.php";
   include "config/fungsi_seat.php";
   include "config/fungsi_fiktif.php";
-
+  
 if($_POST[login]!=""){
 	function antiinjection($data){
 		$filter_sql = mysql_real_escape_string(stripslashes(strip_tags(htmlspecialchars($data,ENT_QUOTES))));
 		return $filter_sql;
 	}
-
+	
 	$username 	= antiinjection($_POST[username]);
 	$password 	= antiinjection($_POST[password]);
-
-  $q = "SELECT id_profil from login
+	
+	$query		= mysql_query("SELECT * from login
 							   JOIN profil ON login.username=profil.email
-							   WHERE login.username='$username'
-                  AND login.pass=md5('$password')
-                  AND login.status='Y'
-                  AND login.grup='2' ";
-
-  $query		= mysql_query($q);
+							   WHERE login.username='$username' AND login.pass=md5('$password') AND login.status='Y' AND login.grup='2'");
 	$jml		= mysql_num_rows($query);
 	$r			= mysql_fetch_array($query);
-
+	
 	if($jml > 0){
-		$_SESSION[basyenkuser]   	  = $r[username];
+		$_SESSION[basyenkuser]   	= $r[username];
 		$_SESSION[basyenkpassword]  = $r[pass];
 		$_SESSION[basyenklevel]   	= $r[grup];
-		$_SESSION[basyenknama]   	  = $r[nama];
+		$_SESSION[basyenknama]   	= $r[nama];
 
 		echo "<script>alert('Selamat datang di Sistem Registrasi Berlangganan Koran Riau Pos...'); window.location = 'media.php?page=home'</script>";
 	}
@@ -52,14 +45,14 @@ if($_POST[login]!=""){
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" class="no-js" lang="id">
 
-<head>
+<head>		
 	<meta name="description" content="Registrasi Berlangganan Koran Riau Pos Online" />
 	<meta name="keywords" content="Registrasi Berlangganan Koran Riau Pos online" />
 	<meta name="author" content="" />
 	<meta charset="UTF-8" />
 	<link rel="icon" href="images/favicon2.ico" type="image/x-icon" />
 	<title>SIM | Berlangganan Koran Riau Pos Online</title>
-
+		
 	<link rel="stylesheet" type="text/css" href="css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css" media="screen" />
@@ -74,13 +67,13 @@ if($_POST[login]!=""){
 
 	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
-	<script type="text/javascript" src="js/slide.js"></script>
-
+	<script type="text/javascript" src="js/slide.js"></script>    
+	
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="js/jscal2.js"></script>
 	<script type="text/javascript" src="js/lang/en.js"></script>
-
+	
 
 	<script language="javascript">
 		function validasi(form_daftar){
@@ -88,7 +81,7 @@ if($_POST[login]!=""){
 			alert("Anda belum mengisikan Nama Pengguna.");
 			form.nama_pengguna.focus();
 			return (false);
-		  }
+		  }    
 		  if (form_daftar.nama_lengkap.value == ""){
 			alert("Anda belum mengisikan Nama Lengkap.");
 			form.nama_lengkap.focus();
@@ -101,34 +94,34 @@ if($_POST[login]!=""){
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('a.login-window').click(function() {
-
-				// Getting the variable's value from a link
+				
+				// Getting the variable's value from a link 
 				var loginBox = $(this).attr('href');
 
 				//Fade in the Popup and add close button
 				$(loginBox).fadeIn(300);
-
+				
 				//Set the center alignment padding + border
-				var popMargTop = ($(loginBox).height() + 24) / 2;
-				var popMargLeft = ($(loginBox).width() + 24) / 2;
-
-				$(loginBox).css({
+				var popMargTop = ($(loginBox).height() + 24) / 2; 
+				var popMargLeft = ($(loginBox).width() + 24) / 2; 
+				
+				$(loginBox).css({ 
 					'margin-top' : -popMargTop,
 					'margin-left' : -popMargLeft
 				});
-
+				
 				// Add the mask to body
 				$('body').append('<div id="mask"></div>');
 				$('#mask').fadeIn(300);
-
+				
 				return false;
 			});
-
+			
 			// When clicking on the button close or the mask layer the popup closed
-			$('a.close, #mask').live('click', function() {
+			$('a.close, #mask').live('click', function() { 
 			  $('#mask , .login-popup').fadeOut(300 , function() {
-				$('#mask').remove();
-			});
+				$('#mask').remove();  
+			}); 
 			return false;
 			});
 		});
@@ -156,13 +149,13 @@ if($_POST[login]!=""){
 					<div class="submit"><input class="bt_login" type="submit" value="Login" name="login"/></div>
 				</form>
 			</div>
-
+			
 			<div class="left">
 				<h2>Selamat Datang di SIM Berlangganan Koran Riau Pos Online</h2>
 				<p class="grey">Kami adalah siap melayani......................</p>
 				<br>
 			</div>
-
+			
 			<div class="left right">
 				<h2>Belum jadi Anggota?</h2>
 				<p class="grey">Jika anda belum teregister di sistem kami...</p>
@@ -174,11 +167,11 @@ if($_POST[login]!=""){
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> 			
 </div>
 
-<div id="container" class="fullwidth center">
-	<header class="fullwidth center">
+<div id="container" class="fullwidth center">   
+	<header class="fullwidth center">		 
 		<div id="header-center" class="right">
 			<ul id="main-menu">
 				<li class="home">	<a href="media.php?page=home">home<p>kembali menuju halaman utama</p></a></li>
@@ -197,7 +190,7 @@ if($_POST[login]!=""){
 				}
                 ?>
 			</ul>
-		</div>
+		</div> 
 		<div class="clear"></div>
 	</header>
 	<div id="content" class="fullwidth center">
@@ -210,22 +203,22 @@ if($_POST[login]!=""){
 					<span><a href='media.php?page=ubah-password'>ubah password</a></span>
 					<span><a href='media.php?page=tiket'>Koran</a></span>
 					<span><a href='media.php?page=stop'>Stop Berlangganan</a></span>";
-
+					
 				}
 			?>
 		</div>
-
+		
 		<div id="main-content">
 			<div id="content-left" class="left padding-title">
 				<article>
-					<div id="article-content">
-						<!-- Awal Konten Tengah ################################ !-->
+					<div id="article-content">    	
+						<!-- Awal Konten Tengah ################################ !-->       
 						<center><?php include "content.php"; ?></center>
 						<!-- Akhir Konten Tengah ################################ !-->
 					</div>
 				 </article>
 			</div>
-
+			
 			<div id="widget-area" class="header-cart">
 			<?php
 				include 'widget/logo.php';
@@ -233,10 +226,10 @@ if($_POST[login]!=""){
 				include 'widget/promo.php';
 			?>
 			</div>
-
+			
 			<div class="clear"></div>
 		</div>
-	</div>
+	</div>			
 </div>
 
 <!-- Batas Footer ################################ !-->
@@ -245,13 +238,13 @@ if($_POST[login]!=""){
 	<div class="container fullwidth center">
 		<div id="footer-white"></div>
 		<ul id="footer-menu">
-			<a href="media.php?page=home">			Home</a> |
-			<a href="media.php?page=profil">		Tentang Kami</a> |
-			<a href="media.php?page=simulasi">	Simulasi</a> |
-			<a href="media.php?page=saran-kritik">	Saran dan Kritik</a> |
+			<a href="media.php?page=home">			Home</a> |  
+			<a href="media.php?page=profil">		Tentang Kami</a> |  
+			<a href="media.php?page=simulasi">	Simulasi</a> |  
+			<a href="media.php?page=saran-kritik">	Saran dan Kritik</a> |  
 			<a href="media.php?page=faq">			FAQ</a> |
 			<a href="media.php?page=tindak-lanjut">			Tindak Lanjut </a>
-
+			
 			<div class="clear"></div>
 		</ul>
 		<div class="clear"></div>

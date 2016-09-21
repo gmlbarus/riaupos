@@ -15,7 +15,7 @@ else{
 		}
     $jml  = mysql_num_rows($edit);
 
-    echo "<h2>SMS Broadcast</h2>
+    echo "<h2>SMS Personal</h2>
           <form method=POST enctype='multipart/form-data' action=$aksi?module=smsSend&act=update>
           <table>
           <tr><td>Penerima<td> : <select name='hp'>{$daftar_hp}</select></td></tr>

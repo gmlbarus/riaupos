@@ -15,7 +15,7 @@ $jml	= mysql_num_rows($query);
 echo '<table id="tabel-agen" class="display" cellspacing="0" width="100%">
 		<thead>
 			<tr>
-				<th>Nama Perusahaan</th>
+				<th>Nama Agen</th>
 				<th>Alamat</th>
 				<th>Telepon</th>
 			</tr>
