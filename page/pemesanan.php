@@ -1,68 +1,68 @@
 <?php
-switch ($_SESSION[tahap]){		
+switch ($_SESSION[tahap]){
 	default:
 		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Koran</a></th>";
 		$th2	= "<th>Data Pelanggan</th>";
-		$th3	= "<th>Layana Tambahan</th>";
+		$th3	= "<th>Metode Pembayaran</th>";
 		$th4	= "<th>Pembayaran</th>";
-		$th5	= "<th>Konfirmasi Pembayaran</th>";
-		$th6	= "<th></th>";
-		
-		$judul 	= 'Berlangganan Koran';
-		break;
-		
-	case 2:
-		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Tiket</a></th>";
-		$th2	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=2'>Data Pelanggan</a></th>";
-		$th3	= "<th>Data Penumpang</th>";
-		$th4	= "<th>Pilih Kursi</th>";
 		$th5	= "<th>Layanan Tambahan</th>";
 		$th6	= "<th>Pembayaran</th>";
-		
+
+		$judul 	= 'Registrasi Berlangganan Koran';
+		break;
+
+	case 2:
+		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Koran</a></th>";
+		$th2	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=2'>Data Pelanggan</a></th>";
+		$th3	= "<th>Metode Pembayaran</th>";
+		$th4	= "<th>Pembayaran</th>";
+		$th5	= "<th>Layanan Tambahan</th>";
+		$th6	= "<th>Pembayaran</th>";
+
 		$judul 	= 'Data Pelanggan';
 		break;
-		
+
 	case 3:
-		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Tiket</a></th>";
+		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Koran</a></th>";
 		$th2	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=2'>Data Pelanggan</a></th>";
-		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Data Penumpang</a></th>";
-		$th4	= "<th>Pilih Kursi</th>";
+		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Metode Pembayaran</a></th>";
+		$th4	= "<th>Pembayaran</th>";
 		$th5	= "<th>Layanan Tambahan</th>";
 		$th6	= "<th>Pembayaran</th>";
-		
-		$judul 	= 'Data Penumpang';
+
+		$judul 	= 'Metode Pembayaran';
 		break;
-		
+
 	case 4:
-		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Tiket</a></th>";
+		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Koran</a></th>";
 		$th2	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=2'>Data Pelanggan</a></th>";
-		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Data Penumpang</a></th>";
-		$th4	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=4'>Pilih Kursi</a></th>";
+		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Metode Pembayaran</a></th>";
+		$th4	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=4'>Pembayaran</a></th>";
 		$th5	= "<th>Layanan Tambahan</th>";
 		$th6	= "<th>Pembayaran</th>";
-		
-		$judul 	= 'Pilih Kursi';
+
+		$judul 	= 'Pembayaran';
 		break;
-	
+
 	case 5:
-		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Tiket</a></th>";
+		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Koran</a></th>";
 		$th2	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=2'>Data Pelanggan</a></th>";
-		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Data Penumpang</a></th>";
-		$th4	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=4'>Pilih Kursi</a></th>";
+		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Metode Pembayaran</a></th>";
+		$th4	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=4'>Pembayaran</a></th>";
 		$th5	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=5'>Layanan Tambahan</a></th>";
 		$th6	= "<th>Pembayaran</th>";
-		
+
 		$judul 	= 'Layanan Tambahan';
 		break;
-	
+
 	case 6:
-		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Tiket</a></th>";
+		$th1	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=1'>Pilih Koran</a></th>";
 		$th2	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=2'>Data Pelanggan</a></th>";
-		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Data Penumpang</a></th>";
-		$th4	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=4'>Pilih Kursi</a></th>";
+		$th3	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=3'>Metode Pembayaran</a></th>";
+		$th4	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=4'>Pembayaran</a></th>";
 		$th5	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=5'>Layanan Tambahan</a></th>";
 		$th6	= "<th style='border-bottom: 5px solid #c5a430;'><a href='media.php?page=pemesanan&tahap=6'>Pembayaran</a></th>";
-		
+
 		$judul 	= 'Pembayaran';
 		break;
 }
@@ -81,7 +81,7 @@ switch ($_SESSION[tahap]){
 		echo $th4;
 		echo $th5;
 		echo $th6;
-	?>	
+	?>
 </tr>
 </tbody>
 </table>
@@ -92,26 +92,26 @@ switch($_GET[tahap]){
 	default:
 		include 'tahap_1.php';
 		break;
-		
+
 	case 2:
 		include 'tahap_2.php';
 		break;
-	
+
 	case 3:
 		include 'tahap_3.php';
 		break;
-		
+
 	case 4:
 		include 'tahap_4.php';
 		break;
-	
+
 	case 5:
 		include 'tahap_5.php';
 		break;
-	
+
 	case 6:
 		include 'tahap_6.php';
 		break;
-		
+
 }
 ?>

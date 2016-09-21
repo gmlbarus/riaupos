@@ -4,49 +4,18 @@ $(document).ready(function() {
         "order": [[ 0, "asc" ]]
     } );
 } );</script>
-<script language="javascript">
-$(document).ready(function() {
-    $('#tabel-jadwal').dataTable( {
-        "order": [[ 0, "asc" ]]
-    } );
-} );</script>
-<h1>Jadwal</h1>
+
+<h1>Jadwal Pengiriman Koran</h1>
 <hr color='#c5a430' size='1'>
 
 <?php
-$query 	= mysql_query("SELECT * FROM jadwal");
-$jml	= mysql_num_rows($query);
-
-echo '<table id="tabel-jadwal" class="display" cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th>No.</th>
-				<th>kode.</th>	
-				<th>Daerah</th>
-				<th>Jam_Kirim</th>
-				<th>Jam_Tiba</th>
-			</tr>
-		</thead>
-		<tbody>';
-		$no = 1;
-		while($r=mysql_fetch_array($query)){
-			echo "<tr>
-					<td>$no</td>
-					<td>".strtoupper($r[kode])."</td>
-					<td>".strtoupper($r[daerah])."</td>
-					<td>".strtoupper($r[jam_pengiriman])."</td>
-					<td>".strtoupper($r[jam_tiba])."</td>
-				</tr>";
-			$no++;
-		}
-
-echo '	</tbody></table>';
-
+	$r =  mysql_fetch_array(mysql_query("select * from konten where grup='jadwal'"));
+	echo "<p>$r[deskripsi]</p>";
 ?>
 
 <div class='div-shadow'></div>
 
-<h1>Tarif </h1>
+<h1>Tarif Berlangganan Koran</h1>
 <hr color='#c5a430' size='1'>
 
 <?php
