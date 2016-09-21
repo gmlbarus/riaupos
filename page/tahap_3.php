@@ -15,12 +15,12 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 <script type="text/javascript">
 	function hitung_harga(elem){
 		var sebanyak = elem.value;
-		sebanyak = sebanyak.replace(/[^\d.]/g, "");
+		// sebanyak = sebanyak.replace(/[^\d.]/g, "");
 		var hari = sebanyak * 30;
 		document.getElementById('hari').innerHTML = hari;
 		document.getElementById('hari_form').value = hari;
 		var unik = document.getElementById('nominal_unik').innerHTML;
-		var harga = 79000 * sebanyak;
+		var harga = 79000 * sebanyak + parseInt(unik);
 		document.getElementById('total_harga').innerHTML = harga;
 		document.getElementById('total_harga_form').value = harga;
 
