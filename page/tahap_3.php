@@ -1,13 +1,10 @@
 <?php
 if($_SESSION[tahap]>=$_GET[tahap]){
 	if($_POST[lanjut]!=''){
-		$_SESSION['pembayaran'] = $_POST['pembayaran'];
-		$_SESSION['sebanyak'] = $_POST['sebanyak'];
-		$_SESSION['hari'] = $_POST['hari'];
-		$_SESSION['harga'] = $_POST['harga'];
-		$_SESSION['nominal_unik'] = $_POST['nominal_unik'];
+		$_SESSION['order'] = array_replace_recursive($_SESSION['order'], $_POST);
 
-		$_SESSION[tahap] = 4;
+		if (isset($_SESSION[tahap]))
+			$_SESSION[tahap] = $_SESSION[tahap] > 4 ? $_SESSION[tahap] : 4;
 		echo "<script>window.location = 'media.php?page=pemesanan&tahap=4'</script>";
 		//echo "<script>window.location = 'page/tahap_3.php'</script>";
 	}
@@ -33,13 +30,6 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 
 	<div class="search-form-top">
 		<?php
-		function is_set($session, $default){
-			return isset($_SESSION[$session]) ? $_SESSION[$session] : $default;
-		}
-
-		function is_selected($session, $opt){
-			echo $_SESSION[$session] == $opt ? "value='{$opt}' selected" : "value='{$opt}'" ;
-		}
 			$invoice = is_set('invoice', bin2hex(openssl_random_pseudo_bytes(6)));
 		?>
 		<h3>Invoice # <?php echo $invoice ?></h3>

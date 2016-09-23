@@ -1,16 +1,12 @@
 <?php
 if($_POST[cari]!=""){
 	$_SESSION[tahap]	= 2;
-	$_SESSION['invoice'] = $_POST['invoice'];
-	$_SESSION['koran_1'] = $_POST['koran_1'];
-	$_SESSION['koran_2'] = $_POST['koran_2'];
+	if ( ! isset($_SESSION[order])) $_SESSION['order'] = array();
 
+	$_SESSION['order'] = array_replace_recursive($_SESSION['order'], $_POST);
 
-	$_SESSION['metode_pembayaran'] = $_POST['metode_pembayaran'];
-	$_SESSION['jumlah'] = $_POST['jumlah'];
-	$_SESSION['tipe'] = $_POST['tipe'];
-	$_SESSION['harga'] = $_POST['harga'];
-
+	if (isset($_SESSION[tahap]))
+		$_SESSION[tahap] = $_SESSION[tahap] > 2 ? $_SESSION[tahap] : 2;
 
 	echo "<script>window.location = 'media.php?page=pemesanan&tahap=2'</script>";
 }
@@ -118,13 +114,6 @@ function validasi(form){
 
 	<div class="search-form-top">
 		<?php
-		function is_set($session, $default){
-			return isset($_SESSION[$session]) ? $_SESSION[$session] : $default;
-		}
-
-		function is_selected($session, $opt){
-			echo $_SESSION[$session] == $opt ? "value='{$opt}' selected" : "value='{$opt}'" ;
-		}
 			$invoice = is_set('invoice', bin2hex(openssl_random_pseudo_bytes(6)));
 		?>
 		<h3>Invoice # <?php echo $invoice ?></h3>
@@ -147,7 +136,7 @@ function validasi(form){
 	<div class="clearfix">
 		<div class="input text"><label for="nama">Koran Tambahan Pertama</label>
 			<select class="" name="koran_1" id="koran_1">
-				<option>-Pilihan 1-</option>
+				<option value="">-Pilihan 1-</option>
 				<option <?php is_selected('koran_1', 'kompas') ?>>Kompas</option>
 				<option <?php is_selected('koran_1', 'analisa') ?>>Analisa</option>
 				<option <?php is_selected('koran_1', 'posmetro') ?>>Pos Metro</option>
@@ -161,7 +150,7 @@ function validasi(form){
 	<div class="clearfix">
 		<div class="input text"><label for="nama">Koran Tambahan Kedua</label>
 			<select class="" name="koran_2" id="koran_2">
-				<option>-Pilihan 2-</option>
+				<option value="">-Pilihan 2-</option>
 				<option <?php is_selected('koran_2', 'kompas') ?>>Kompas</option>
 				<option <?php is_selected('koran_2', 'analisa') ?>>Analisa</option>
 				<option <?php is_selected('koran_2', 'posmetro') ?>>Pos Metro</option>

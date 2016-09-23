@@ -1,5 +1,6 @@
 <?php
 if($_POST[selesai]!=""){
+	// TODO: insert into table konfirmasi
 	$query 	= mysql_query("INSERT INTO Konfirmasi(invoice,pembayaran,total,tanggal_bayar,pemilik_rek,images,pesan,tgl_input)
 						VALUES (
 						'".mysql_real_escape_string($_POST[invoice])."',
@@ -13,12 +14,16 @@ if($_POST[selesai]!=""){
 						now())");
 
 	if($query){
+		echo "<script>alert('Data anda telah kami terima. Terima kasih')</script>";
 		echo '<div id="status_message" class="status_success">Data anda telah kami terima. Terima kasih</div>';
 	}
 	else{
+		echo "<script>alert('Gagal mengirim data')</script>";
 		echo '<div id="status_message" class="status_error">Gagal mengirim data</div>';
-	}	
+	}
 }
+
+$order = $_SESSION[order];
 ?>
 
 <h1>Konfirmasi</h1>
@@ -27,8 +32,8 @@ if($_POST[selesai]!=""){
 <div class="register form">
 	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">
 
-	<div class="input text"><label for="invoice">Invoice :</label><input name="invoice" required="required" size="30" type="text" id="invoice"/></div>
-	
+	<div class="input text"><label for="invoice">Invoice :</label><input name="invoice" required="required" size="30" type="text" id="invoice" value="<?php  echo $order[invoice] ?>" disabled/></div>
+
 	<div class="input text"><label for="pembayaran">Pembayaran Via :</label><input name="pembayaran" required="required" size="30" type="text" id="pembayaran"/></div>
 
     <div class="input textarea"><label for="negara">Bayar kerekening :</label>
@@ -60,9 +65,9 @@ if($_POST[selesai]!=""){
     <div class="input text"><label for="pemilik_rek"> Nama pemilik rekening :</label><input name="pemilik_rek" required="required" size="30" type="text" id="pemilik_rek"/></div>
 
 	<div class="input-group"><label for="images">Upload gambar :</label><input name="nama" required="required" size="90" type="file" id="images"/></div>
-	
+
 	<div class="input textarea"><label for="pesan">Pesan :</label><textarea name="pesan" required="required" style="height:50px" cols="30" rows="6" id="pesan"></textarea></div>
-    
+
 	<div class="clear"></div>
 	<div class="submit"><input type="submit" value="Kirim" name="kirim"/></div></form>
 </div>

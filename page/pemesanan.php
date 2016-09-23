@@ -1,4 +1,15 @@
 <?php
+// var_dump($_SESSION);
+//
+// var_dump($_SESSION[order]);
+
+function is_set($session, $default){
+	return isset($_SESSION[order][$session]) ? $_SESSION[order][$session] : $default;
+}
+
+function is_selected($session, $opt){
+	echo $_SESSION[order][$session] == $opt ? "value='{$opt}' selected" : "value='{$opt}'" ;
+}
 
 switch ($_SESSION[tahap]){
 	default:
