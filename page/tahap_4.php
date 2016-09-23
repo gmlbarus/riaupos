@@ -1,8 +1,32 @@
 <?php
+/*
+if (isset($_POST[submit])) {
+	# code...
+	$query 	= mysql_query("INSERT INTO detail_order(invoice,koran_1,koran_2,sebanyak,hari,harga,nominal_unik,status)
+						VALUES (
+						'".$_SESSION[invoice]."',
+						'".$_SESSION[koran_1]."',
+						'".$_SESSION[koran_2]."',
+						'".$_SESSION[sebanyak]."',
+						'".$_SESSION[hari]."',
+						'".$_SESSION[harga]."',
+						'".$_SESSION[nominal_unik]."',
+						'"Belum lunas"',
+						now())");
+
+	if($query){
+		echo '<div id="status_message" class="status_success">Data anda telah kami terima. Terima kasih</div>';
+	}
+	else{
+		echo '<div id="status_message" class="status_error">Gagal mengirim data</div>';
+	}
+}
+*/
 if($_SESSION[tahap]>=$_GET[tahap]){
 	if($_POST[lanjut]!=''){
 
 				$_SESSION[tahap] 	= 6;
+				echo '<div id="status_message" class="status_success">Data anda telah kami terima. Terima kasih</div>';
 				echo "<script>window.location = 'media.php?page=pemesanan&tahap=6'</script>";
 		}
 	else if($_POST[batalkan]){
@@ -14,13 +38,15 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 	<div class="register form">
 		<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post">
 		<div class="clearfix">
+		<h3 class="orangetext" style="color: #000000">Nama Pelanggan &nbsp&nbsp&nbsp&nbsp: <?php echo strtoupper($_SESSION[profil][0]); ?><br>
 			<h3>Invoice # <?php echo $_SESSION['invoice'] ?></h3>
 			<input type="hidden" name="invoice" value="<?php echo $_SESSION['invoice']?>">
+			<?php echo $_SESSION['namauser']; ?>
 		</div>
 
 		<div class="clear"></div>
 
-		<hr color='#c5a430' size='1'>
+		<hr color='#000000' size='1'>
 
 		<!-- Koran Utama -->
 		<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
@@ -100,15 +126,41 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 			<div style="width:30%; float: left;"><b style="color:#fefffc">Total yang harus dibayar</b></div>
 			<div style="width:70%"><b style="color:#fefffc">: Rp. <?php echo $_SESSION['harga'] ?></b></div>
 		</div>
-
-
+		<br \>
+		<p>Silahkan transfer pemesanan anda sesuai dengan nominal yang tercantum diatas ke rekening berikut :</p>
+		<table cellpadding="0" border="0" width="670">
+			<tbody>
+			<tr>
+				<th>Nama Bank</th>
+				<th>Nomor Rekening</th>
+				<th>Atas Nama</th>
+			</tr>
+			<?php
+			$bank = mysql_query("select * from bank order by nama_bank");
+			while($b = mysql_fetch_array($bank)){
+				echo "<tr>
+						<td>".strtoupper($b[nama_bank])."</td>
+						<td>$b[norek]</td>
+						<td>".strtoupper($b[nama_pemilik])."</td>
+					</tr>";
+			}
+			?>
+			</tbody>
+		</table>
+		<p>Pastikan anda menyertakan kode unik berikut : <b><?php echo $_SESSION['nominal_unik'] ?></b> pada berita transfer anda.</p>
+		
+		<div class="clearfix" style="padding:15px; background-color:#125e9d">
+			<div style="width:50%; float: left;"><b style="color:#fefffc">Segera Melakukan Pembayaran Sebelum :</b></div>
+			<div style="width:65%"><b style="color:#fefffc"><?php $date = time(); 
+			$newdate = $date + (60 * 24 * 365); // 60 detik x 60 menit x 24 jam x 365 hari = 1 taun 
+			echo date ('Y-m-j' , $newdate ); ?></b></div>
+		</div>
 		<div class="clear"></div>
 
 		<div class="clear"></div>
 
-			<div class='div-shadow'></div>
-			<div class="submit" style="width:20%; float: left"><input type="submit" value="Batalkan Order" name="batalkan"/></div>
-			<div class="submit"><input type="submit" value="Konfirmasi Pembayaran" name="lanjut" onclick="return validasi()"/></div>
+			<div class="submit" style="width:30%; float: left"><input type="submit" value="Batalkan Order" name="batalkan"/></div>
+			<div class="submit"><input type="submit" value="Order" name="lanjut" onclick="return validasi()"/></div>
 		</form>
 	</div>
 
@@ -117,53 +169,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 else{
 	echo "<script>history.back();</script>";
 }
+
 ?>
 
-<script language="javascript">
-function validasi(){
-	$jmlkursi	= document.getElementById('jmlkursi').value;
-	for ($i=0; $i<$jmlkursi; $i++) {
-		if (document.getElementById('seat_'+$i).value == ''){
-			alert("Pilihan kursi belum lengkap");
-			return (false);
-		}
-	}
-	return (true);
-}
 
-function cek(id){
-	$hijau		= 'rgb(51, 204, 51)';
-	$kuning		= 'rgb(255, 215, 0)';
-	$jmlkursi	= document.getElementById('jmlkursi').value;
-
-	if(document.getElementById(id).style.backgroundColor == $hijau){
-		document.getElementById(id).style.backgroundColor = $kuning;
-		for ($i=0; $i<$jmlkursi; $i++){
-			if(document.getElementById('seat_' + $i).value==''){
-				document.getElementById('seat_' + $i).value=document.getElementById(id).id;
-				return;
-			}
-		}
-
-		$cek=1;
-		for ($i=0; $i<=$jmlkursi-1; $i++){
-			if(document.getElementById('seat_' + $i).value==''){
-				$cek=0;
-			}
-		}
-		if($cek==1){
-			document.getElementById(id).style.backgroundColor = $hijau;
-			return;
-		}
-	}
-	else if(document.getElementById(id).style.backgroundColor == $kuning){
-		document.getElementById(id).style.backgroundColor = $hijau;
-		for ($i=0; $i<$jmlkursi; $i++){
-			if(document.getElementById('seat_' + $i).value == document.getElementById(id).id){
-				document.getElementById('seat_' + $i).value='';
-				return;
-			}
-		}
-	}
-}
-</script>

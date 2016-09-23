@@ -40,7 +40,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 	<div class="register form">
 		<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post">
 			<h3 class="orangetext" style="color: #000000">Sudah punya akun ? silahkan login disini</h3>
-			<hr color='#c5a430' size='1'>
+			<hr color='#000000' size='1'>
 			<div class="clearfix">
 				<div class="left">
 					<div class="input email"><label for="email">Email :</label><input name="username" size="25" required="required" type="email" id="UserEmail"/></div>
@@ -68,7 +68,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 	<div class="register form">
 		<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">
 		<h3 class="orangetext" style="color: #000000">Data Pelanggan</h3>
-		<hr color='#c5a430' size='1'>
+		<hr color='#000000' size='1'>
 		<div class="input text"><label for="nama">Nama :</label><input name="nama" required="required" size="64" maxlength="125" type="text" id="nama" value="<?php echo $r[nama] ?>"/></div>
 			
 		<div class="clearfix">

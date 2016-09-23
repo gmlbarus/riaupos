@@ -48,7 +48,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 
 	<div class="clear"></div>
 
-	<hr color='#c5a430' size='1'>
+	<hr color='#000000' size='1'>
 
 	<div class="clear"></div>
 
@@ -57,9 +57,11 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		<div class="input text"><label for="pembayaran">Pembayaran via</label>
 			<select class="" name="pembayaran" id="pembayaran">
 				<option>-Metode Pembayaran-</option>
+				<option <?php is_selected('pembayaran', 'internet_banking') ?>>Internet Banking</option>
+				<option <?php is_selected('pembayaran', 'mobile_banking') ?>>Mobile Banking</option>
+				<option <?php is_selected('pembayaran', 'setoran_tunai') ?>>Setoran Tunai</option>
 				<option <?php is_selected('pembayaran', 'atm') ?>>ATM</option>
 				<option <?php is_selected('pembayaran', 'kartu_kredit') ?>>Kartu Kredit</option>
-				<option <?php is_selected('pembayaran', 'promo') ?>>Promo</option>
 			</select>
 		</div>
 	</div>

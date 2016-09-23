@@ -1,16 +1,20 @@
 <?php
 if($_POST[cari]!=""){
 	$_SESSION[tahap]	= 2;
+	$_SESSION['invoice'] = $_POST['invoice'];
+	$_SESSION['koran_1'] = $_POST['koran_1'];
+	$_SESSION['koran_2'] = $_POST['koran_2'];
 
-	if ( ! isset($_SESSION['order']))
-		$_SESSION['order'] = array();
-	$_SESSION['order'] = array_merge($_SESSION['order'], $_POST);
+
+	$_SESSION['metode_pembayaran'] = $_POST['metode_pembayaran'];
+	$_SESSION['jumlah'] = $_POST['jumlah'];
+	$_SESSION['tipe'] = $_POST['tipe'];
+	$_SESSION['harga'] = $_POST['harga'];
+
 
 	echo "<script>window.location = 'media.php?page=pemesanan&tahap=2'</script>";
 }
 ?>
-
-<?php var_dump($_SESSION['order']) ?>
 
 <script language="javascript">
 function Right(str, n){
@@ -129,7 +133,7 @@ function validasi(form){
 
 	<div class="clear"></div>
 
-	<hr color='#c5a430' size='1'>
+	<hr color='#000000' size='1'>
 
 	<!-- Koran Utama -->
 	<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
@@ -157,7 +161,7 @@ function validasi(form){
 	<div class="clearfix">
 		<div class="input text"><label for="nama">Koran Tambahan Kedua</label>
 			<select class="" name="koran_2" id="koran_2">
-				<option value="">-Pilihan 2-</option>
+				<option>-Pilihan 2-</option>
 				<option <?php is_selected('koran_2', 'kompas') ?>>Kompas</option>
 				<option <?php is_selected('koran_2', 'analisa') ?>>Analisa</option>
 				<option <?php is_selected('koran_2', 'posmetro') ?>>Pos Metro</option>
