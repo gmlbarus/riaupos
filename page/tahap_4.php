@@ -1,27 +1,4 @@
 <?php
-/*
-if (isset($_POST[submit])) {
-	# code...
-	$query 	= mysql_query("INSERT INTO detail_order(invoice,koran_1,koran_2,sebanyak,hari,harga,nominal_unik,status)
-						VALUES (
-						'".$_SESSION[invoice]."',
-						'".$_SESSION[koran_1]."',
-						'".$_SESSION[koran_2]."',
-						'".$_SESSION[sebanyak]."',
-						'".$_SESSION[hari]."',
-						'".$_SESSION[harga]."',
-						'".$_SESSION[nominal_unik]."',
-						'"Belum lunas"',
-						now())");
-
-	if($query){
-		echo '<div id="status_message" class="status_success">Data anda telah kami terima. Terima kasih</div>';
-	}
-	else{
-		echo '<div id="status_message" class="status_error">Gagal mengirim data</div>';
-	}
-}
-*/
 if($_SESSION[tahap]>=$_GET[tahap]){
 	if($_POST[lanjut]!=''){
 
@@ -29,6 +6,23 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 
 		if (isset($_SESSION[tahap]))
 			$_SESSION[tahap] = $_SESSION[tahap] > 6 ? $_SESSION[tahap] : 6;
+				// TODO: insert into tbl_order;
+				$order = $_SESSION['order'];
+				$query = "INSERT INTO `order` VALUES(
+							'{$order[invoice]}',
+							'{$_SESSION[basyenkuser]}',
+							'{$order[koran_1]}',
+							'{$order[koran_2]}',
+							'{$order[pembayaran]}',
+							'{$order[harga]}',
+							'{$order[sebanyak]}',
+							'{$order[jatuh_tempo]}',
+							'{$order[hari]}',
+							FALSE
+						)";
+
+				mysql_query($query);		
+
 				echo "<script>alert('Data anda telah kami terima. Terima kasih')</script>";
 				echo "<script>window.location = 'media.php?page=pemesanan&tahap=6'</script>";
 		}
@@ -129,7 +123,14 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 			<div style="width:80%">: <b><?php echo $order['nominal_unik'] ?></b></div>
 		</div>
 
+		<!-- Status Pembayaran -->
+		<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
+			<div style="width:20%; float: left">Status Pembayaran</div>
+			<div style="width:80%">: <b><?php echo $order['status']; ?></b></div>
+		</div>
+
 				<div class="clear"></div>
+
 		<!-- Total yang harus dibayar -->
 		<div class="clearfix" style="padding:15px; background-color:#125e9d">
 			<div style="width:30%; float: left;"><b style="color:#fefffc">Total yang harus dibayar</b></div>
@@ -164,6 +165,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 			$newdate = $date + (60 * 24 * 365); // 60 detik x 60 menit x 24 jam x 365 hari = 1 taun
 			echo date ('Y-m-j' , $newdate ); ?></b></div>
 		</div>
+		<input type="hidden" name="jatuh_tempo" value="<?php echo date ('Y-m-j' , $newdate ) ?>">
 		<div class="clear"></div>
 
 		<div class="clear"></div>
