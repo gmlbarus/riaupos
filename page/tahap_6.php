@@ -9,6 +9,8 @@ if($_POST[kirim]!=""){
 
 						now())");
 
+	$query &= mysql_query("UPDATE `order` SET `konfirmasi` = 'lunas' WHERE `invoice` = '{$_SESSION[order][invoice]}'");					
+
 	if($query){
 		echo '<div id="status_message" class="status_success">Data anda telah kami terima. Terima kasih</div>';
 	}
