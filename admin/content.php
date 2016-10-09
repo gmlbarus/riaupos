@@ -87,6 +87,10 @@ switch ($_GET[module]) {
 		if ($_SESSION['leveluser']=='0') include "modul/mod_agen/agen.php";
 		break;
 
+	case 'konfirmasi':
+		if ($_SESSION['leveluser']=='0') include "modul/mod_konfirmasi/konfirmasi.php";
+		break;
+
 	case 'laporan-agen':
 		if ($_SESSION['leveluser']=='1') include "modul/mod_laporan-agen/agen.php";
 		break;

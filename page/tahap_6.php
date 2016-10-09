@@ -9,10 +9,12 @@ if($_POST[kirim]!=""){
 
 						now())");
 
-	$query &= mysql_query("UPDATE `order` SET `konfirmasi` = 'lunas' WHERE `invoice` = '{$_SESSION[order][invoice]}'");					
+	$query &= mysql_query("UPDATE `order` SET `konfirmasi` = 'pending' WHERE `invoice` = '{$_SESSION[order][invoice]}'");					
 
 	if($query){
-		echo '<div id="status_message" class="status_success">Data anda telah kami terima. Terima kasih</div>';
+	
+	echo "<script>alert('Data pemesanan koran anda telah kami terima, Setelah ini anda akan kami arahkan ke halaman koran. Terima kasih !'); 
+			window.location = 'media.php?page=koran'</script>";
 	}
 	else{
 		echo '<div id="status_message" class="status_error">Gagal mengirim data</div>';

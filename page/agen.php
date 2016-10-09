@@ -6,7 +6,7 @@ $(document).ready(function() {
 } );</script>
 
 <h1>Agen</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#000000' size='1'>
 				  
 <?php
 $query 	= mysql_query("SELECT * FROM agen WHERE aktif='Y'");

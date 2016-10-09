@@ -4,7 +4,7 @@ include 'tahap_0.php';
 <div class='div-shadow'></div>
 
 <h1>Informasi Promo</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#00000' size='1'>
 
 <?php
 $sql=mysql_query("SELECT * FROM promo WHERE aktif='Y'");

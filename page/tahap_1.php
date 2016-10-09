@@ -62,46 +62,7 @@ function setHarga() {
 				break;
 	}
 };
-
-function validasi(form){
-	if (form.media.value == 0){
-		alert("media belum dipilih...");
-		form.media.focus();
-		return (false);
-	}
-
-	if (form.pergi.value == ""){
-		alert("Tanggal pergi masih kosong...");
-		form.pergi.focus();
-		return (false);
-	}
-
-	if (form.pergi.value < tanggal){
-		alert("Tanggal pergi lebih kecil...");
-		form.pergi.focus();
-		return (false);
-	}
-
-	if (form.trip.value == "return"){
-		if (form.pulang.value == ""){
-			alert("Tanggal pulang masih kosong...");
-			form.pulang.focus();
-			return (false);
-		}
-		if (form.pulang.value < tanggal || form.pulang.value < form.pergi.value){
-			alert("Tanggal pulang lebih kecil...");
-			form.pulang.focus();
-			return (false);
-		}
-
-	}
-
-	if (form.dewasa.value==0 && form.anak.value==0 && form.bayi.value==0){
-		alert("Penumpang masih kosong...");
-		form.dewasa.focus();
-		return (false);
-	}
-
+s
   return (true);
 }
 </script>
@@ -137,9 +98,13 @@ function validasi(form){
 		<div class="input text"><label for="nama">Koran Tambahan Pertama</label>
 			<select class="" name="koran_1" id="koran_1">
 				<option value="">-Pilihan 1-</option>
-				<option <?php is_selected('koran_1', 'kompas') ?>>Kompas</option>
-				<option <?php is_selected('koran_1', 'analisa') ?>>Analisa</option>
-				<option <?php is_selected('koran_1', 'posmetro') ?>>Pos Metro</option>
+				<option <?php is_selected('koran_1', 'bisnis') ?>>Bisnis</option>
+				<option <?php is_selected('koran_1', 'health') ?>>Health</option>
+				<option <?php is_selected('koran_1', 'sport') ?>>Sport</option>
+				<option <?php is_selected('koran_1', 'entertainer') ?>>Entertainer</option>
+				<option <?php is_selected('koran_1', 'lifestyle') ?>>Lifestyle</option>
+				<option <?php is_selected('koran_1', 'teknologi') ?>>Teknologi</option>
+				<option <?php is_selected('koran_1', 'pendidikan') ?>>Pendidikan</option>	
 			</select>
 		</div>
 	</div>
@@ -151,9 +116,13 @@ function validasi(form){
 		<div class="input text"><label for="nama">Koran Tambahan Kedua</label>
 			<select class="" name="koran_2" id="koran_2">
 				<option value="">-Pilihan 2-</option>
-				<option <?php is_selected('koran_2', 'kompas') ?>>Kompas</option>
-				<option <?php is_selected('koran_2', 'analisa') ?>>Analisa</option>
-				<option <?php is_selected('koran_2', 'posmetro') ?>>Pos Metro</option>
+				<option <?php is_selected('koran_2', 'bisnis') ?>>Bisnis</option>
+				<option <?php is_selected('koran_2', 'health') ?>>Health</option>
+				<option <?php is_selected('koran_2', 'sport') ?>>Sport</option>
+				<option <?php is_selected('koran_2', 'entertainer') ?>>Entertainer</option>
+				<option <?php is_selected('koran_2', 'lifestyle') ?>>Lifestyle</option>
+				<option <?php is_selected('koran_2', 'teknologi') ?>>Teknologi</option>
+				<option <?php is_selected('koran_2', 'pendidikan') ?>>Pendidikan</option>
 			</select>
 		</div>
 	</div>

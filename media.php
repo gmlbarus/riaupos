@@ -176,12 +176,9 @@ if($_POST[login]!=""){
 			<ul id="main-menu">
 				<li class="home">	<a href="media.php?page=home">home<p>kembali menuju halaman utama</p></a></li>
                 <li class="promo">	<a href="media.php?page=promo">promo<p>informasi promo disini</p></a></li>
-				<li class="jadwal">	<a href="media.php?page=jadwal">jadwal & tarif<p>informasi jadwal pengiriman koran</p></a></li>
-				<li class="makanan"><a href="media.php?page=survey">survey loyalitas</a>
-	              <p>isi data survey</p>
-	      </a></li>
-				<li class="agen">	<a href="media.php?page=agen">agen koran
-		        <p>daftar agen kami</p></a></li>
+				<li class="jadwal">	<a href="media.php?page=jadwal">jadwal dan tarif<p>informasi jadwal pengiriman koran</p></a></li>
+				<li class="makanan"><a href="media.php?page=survey">survey </a><p>isi data survey</p></a></li>
+				<li class="agen">	<a href="media.php?page=agen">agen koran<p>daftar agen kami</p></a></li>
 				<?php
                 if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isset($_SESSION[basyenklevel])){
 					echo "<li class='login'><a href='media.php?page=logout' style='margin-left:-7px;'>Logout</a><a href='#' id='close' >Close</a></li>";
@@ -201,8 +198,9 @@ if($_POST[login]!=""){
 					<span>&nbsp<b>Hai ".strtoupper($_SESSION[basyenknama])." |</b></span>
 					<span><a href='media.php?page=akun'>akun saya</a></span>
 					<span><a href='media.php?page=ubah-password'>ubah password</a></span>
-					<span><a href='media.php?page=tiket'>Koran</a></span>
-					<span><a href='media.php?page=stop'>Stop Berlangganan</a></span>";
+					<span><a href='media.php?page=koran'>Koran</a></span>
+					<span><a href='media.php?page=stop'>Stop Berlangganan</a></span>
+					<span><a href='media.php?page=konfirmasi'>Konfirmasi Pembayaran</a></span>";
 					
 				}
 			?>

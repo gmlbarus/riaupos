@@ -10,20 +10,20 @@ else{
 
 	<script language="javascript">
 	$(document).ready(function() {
-		$('#tabel-tiket').dataTable( {
+		$('#tabel-order').dataTable( {
 			"order": [[ 0, "asc" ]]
 		} );
 	} );</script>
 
-	<h1>Data Order</h1>
-	<hr color='#c5a430' size='1'>
+	<h1>Data Berlangganan</h1>
+	<hr color='#000000' size='1'>
 
 	<?php
 	$query 	= mysql_query("SELECT `a`.*, `b`.`nama` FROM `order` `a` JOIN `profil` `b`
 		ON `a`.`username`=`b`.`email`");
 	$jml	= mysql_num_rows($query);
 	if($jml>0){
-		echo '<table id="tabel-tiket" class="display" cellspacing="0" width="100%">
+		echo '<table id="tabel-order" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th>No.</th>
@@ -37,7 +37,8 @@ else{
 				<tbody>';
 		$no = 1;
 		while($r=mysql_fetch_array($query)){
-			$img	= "<a href='media.php?module=pemesanan&page=tiket&mode=detail&id=$r[invoice]' title='Lihat detail'><img src='../images/detail.png'></a>";
+			$img	= "<a href='media.php?module=pemesanan&page=koran&mode=detail&id=$r[invoice]' title='Lihat detail'><img src='../images/detail.png'></a>
+      <a href='media.php?module=pemesanan&page=koran&mode=detail&id=$r[invoice]'><b>| validasi </b></a>";
 			if($r[status]=='Belum Lunas') {
 				$status = 'Pending';
 			}
@@ -68,15 +69,7 @@ else{
 	if($_GET[mode]=='detail'){
 		function index($teks){
 			switch($teks){
-				case 'EKONOMI':
-					$string = 1;
-					break;
-				case 'EKSEKUTIF':
-					$string = 2;
-					break;
-				case 'VIP':
-					$string = 3;
-					break;
+				
 			}
 			return $string;
 		}
@@ -104,15 +97,7 @@ else{
 					$nam[] = $p[nama];
 					$jk[]  = $p[jk];
 				}
-				mysql_query("delete from order_seat where id_order='$_GET[id]'");
-
-				$query_tgl = mysql_query("select * from order_detail where id_order='$_GET[id]' group by rute order by tgl_berangkat");
-				for($t=0; $t<mysql_num_rows($query_tgl); $t++){
-					for($u=0; $u<$_POST[jmlkursi]; $u++){
-						mysql_query("insert into order_seat (id_order,seat,kategori,nama,jk,tgl_berangkat)
-						values ('$_GET[id]','".$_POST['seat_'.$u]."','".$kat[$u]."','".$nam[$u]."','".$jk[$u]."','".mysql_result($query_tgl,$t,'tgl_berangkat')."')");
-					}
-				}
+				mysql_query("delete from order_seat where id_order='$_GET[id]'");			
 
 				echo "<script>alert('Proses upgrade class anda telah disimpan. Selamat anda mendapatkan promo pijat gratis. Terima kasih !');
 				window.location = 'media.php?page=tiket'</script>";
@@ -145,10 +130,10 @@ else{
 		}
 
 		echo "
-		<hr color='#c5a430' size='1'>
+		<hr color='#000000' size='1'>
 		<br><br>
-		<h1>Detail Order</h1>
-		<hr color='#c5a430' size='4'>
+		<h1>Detail</h1>
+		<hr color='#000000' size='4'>
 		<form name='form' action='' method='post'>
 		<table cellpadding=0 border=0 width=670>
 			<tbody>
@@ -202,42 +187,12 @@ else{
 				<td width=10>:</td>
 				<td><b>".strtoupper($o[konfirmasi])."</b></td>
 			</tr>
-			<!--tr>
-				<td width=150>Kelas</td>
-				<td width=10>:</td>
-				<td>
+		
 					<input type='hidden' name='kelas_temp' value='$o[kelas]'>
 					<input type='hidden' name='trip' value='$o[trip]'>";
 					if($o[status]=='Belum Lunas'){
-						echo "<select name='kelas'>";
-						$tampil=mysql_query("select * from konten where grup='kelas'");
-						while($t=mysql_fetch_array($tampil)){
-							if(strtoupper($t[deskripsi])==$kelas_temp1){
-								echo "<option value='".strtoupper($t[deskripsi])."' selected>".strtoupper($t[deskripsi])."</option>";
-							}
-							else{
-								echo "<option value='".strtoupper($t[deskripsi])."'>".strtoupper($t[deskripsi])."</option>";
-							}
-						}
-						echo "	</select>";
 					}
-					else{
-						echo "<b>".$kelas_temp1."</b>";
-					}
-
-			 echo "$tombol
-				</td>
-			</tr>
-			<tr>
-				<td width=150>Tipe Trip</td>
-				<td width=10>:</td>
-				<td><b>";
-				if($o[trip]=='pp'){
-					echo 'Pulang Pergi';
-				}
-				else if($o[trip]=='one_way'){
-					echo 'Sekali Jalan';
-				}
+			 
 			echo "</b></td>
 			</tr-->
 			<tr>
@@ -254,69 +209,6 @@ else{
 			</tr>
 			</tbody>
 		</table>";
-
-		if($_POST[upgrade] != ''){
-			$jmlpenumpang = mysql_query("select rute,sum(qty) as qty from order_detail where id_order='$_GET[id]' group by rute");
-			if(index($_POST[kelas_temp]) < index($_POST[kelas])){
-				echo "<table cellpadding='0' border='1' width='670'>";
-
-				if($_POST[kelas]=='EKSEKUTIF'){
-					for($i=0; $i<=2; $i++){
-						if($i==0) $var = 'A';
-						if($i==1) $var = 'B';
-						if($i==2) $var = 'C';
-						$cektanggal = mysql_query("select * from order_detail where id_order='$_GET[id]'");
-						$query_seat = mysql_query("select os.seat,os.tgl_berangkat,ok.kelas from order_seat os
-													 inner join order_kelas ok on os.id_order=ok.id_order and ok.aktif='Y' and ok.kelas='$_POST[kelas]'
-													 where os.tgl_berangkat='".mysql_result($cektanggal,0,'tgl_berangkat')."'");
-
-						unset($seat_disable);
-						while($s = mysql_fetch_array($query_seat)){
-							$seat_disable[] = $s[seat];
-						}
-
-						echo "
-						<tr>
-							<td style='padding: 10px 0px 10px 0px; text-align:center'><b>EKSEKUTIF $var</b>";
-							seat('eksekutif '.$var, $seat_disable);
-						echo "</td>
-						</tr>";
-					}
-				}
-				else{
-					echo "<tr>
-						<td style='padding: 10px 0px 10px 0px; text-align:center'> <b>$_POST[kelas]</b>";
-						$cektanggal = mysql_query("select * from order_detail where id_order='$_GET[id]'");
-						$query_seat = mysql_query("select os.seat,os.tgl_berangkat,ok.kelas from order_seat os
-													 inner join order_kelas ok on os.id_order=ok.id_order and ok.aktif='Y' and ok.kelas='$_POST[kelas]'
-													 where os.tgl_berangkat='".mysql_result($cektanggal,0,'tgl_berangkat')."'");
-						unset($seat_disable);
-						while($s = mysql_fetch_array($query_seat)){
-							$seat_disable[] = $s[seat];
-						}
-
-						seat($_POST[kelas], $seat_disable);
-					echo "</td>
-					</tr>";
-				}
-				echo "<tr>
-					<td style='padding: 10px 0px 10px 0px; text-align:center'>
-						<input name='jmlkursi' id='jmlkursi' type='hidden' value='".mysql_result($jmlpenumpang,0,'qty')."' />
-						<input type='submit' value='Simpan' name='simpan' onclick=\"return validasi()\">
-					</td>
-				</tr>";
-				echo "</table>";
-				for($i=0;$i<mysql_result($jmlpenumpang,0,'qty');$i++){
-					echo "<input name='seat_$i' id='seat_$i' type='hidden'/>";
-				}
-			}
-			else{
-				echo "<script>alert('Maaf, proses downgrade class tidak diperbolehkan'); </script>";
-			}
-		}
-
-		echo "</form>
-		<br>";
 
 	}
 }

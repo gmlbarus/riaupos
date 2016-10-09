@@ -126,7 +126,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		<!-- Status Pembayaran -->
 		<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
 			<div style="width:20%; float: left">Status Pembayaran</div>
-			<div style="width:80%">: <b><?php echo $order['status']; ?></b></div>
+			<div style="width:80%">: <b><?php echo $order['status_pembayaran']; ?></b></div>
 		</div>
 
 				<div class="clear"></div>

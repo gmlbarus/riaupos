@@ -1,6 +1,6 @@
 <?php
 echo "	<h1>Promo</h1>
-		<hr color='#c5a430' size='1'>";
+		<hr color='#00000' size='1'>";
 
 if($_GET[mode]=='detail'){
 	$query 	= mysql_query("select * from promo where aktif='Y' and id_promo='$_GET[id]'");

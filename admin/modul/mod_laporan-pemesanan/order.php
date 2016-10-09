@@ -15,8 +15,8 @@ else{
 		} );
 	} );</script>
 
-	<h1>Data Order</h1>
-	<hr color='#c5a430' size='1'>
+	<h1>Data Berlangganan</h1>
+	<hr color='#000000' size='1'>
 
 	<?php
 	$query 	= mysql_query("SELECT `a`.*, `b`.`nama` FROM `order` `a` JOIN `profil` `b`

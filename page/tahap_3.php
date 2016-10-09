@@ -17,6 +17,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		document.getElementById('hari').innerHTML = hari;
 		document.getElementById('hari_form').value = hari;
 		var unik = document.getElementById('nominal_unik').innerHTML;
+		var status = document.getElementById('status_pembayaran').innerHTML;
 		var harga = 79000 * sebanyak + parseInt(unik);
 		document.getElementById('total_harga').innerHTML = harga;
 		document.getElementById('total_harga_form').value = harga;
@@ -95,21 +96,22 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 
 	<div class="clear"></div>
 
-	<!-- Status Pembayaran -->
+<!-- Status Pembayaran -->
 	<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
 		<div style="width:20%; float: left">Status Pembayaran</div>
-		<?php $status = is_set('status',('Belum Lunas')); ?>
-		<div style="width:80%">: <b id="status"><?php echo $status; ?></b></div>
-		<input type="hidden" name="status" value="<?php echo $status; ?>">
+		<?php $status = is_set('status_pembayaran','belum lunas'); ?>
+		<div style="width:80%">: <b id="status_pembayaran"><?php echo $status; ?></b></div>
+		<input type="hidden" name="status_pembayaran" value="<?php echo $status; ?>">
 	</div>
+
 
 	<div class="clear"></div>
 
 	<!-- Total Harga -->
-	<div class="clearfix" style="padding:15px; background-color: #125e9d;">
-		<div style="width:30%; float: left; color:#ffffff">Total yang harus dibayar</div>
+	<div class="clearfix" style="padding-top: 10px;padding-bottom:10px; background-color: #f0f0f0;">
+		<div style="width:30%; float: left">Total yang harus dibayar</div>
 		<?php $harga = is_set('harga', '') ?>
-		<div style="width:70%; color:#ffffff">: <b style="color:#ffffff">Rp. </b><b id='total_harga' style="color:#ffffff"><?php echo $harga; ?></b></div>
+		<div style="width:70%">: <b>Rp. </b><b id='total_harga'><?php echo $harga; ?></b></div>
 		<input type="hidden" name="harga" id="total_harga_form" value="<?php echo $harga; ?>"/>
 	</div>
 

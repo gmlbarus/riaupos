@@ -11,19 +11,17 @@ if ($module=='ongkos' AND $act=='hapus'){
 }
 
 elseif ($module=='ongkos' AND $act=='input'){  
-  mysql_query("INSERT INTO tarif(kelas,kategori_penumpang,one_way,pp) 
+  mysql_query("INSERT INTO tarif(kelas,sebulan,setahun) 
 	                       VALUES('$_POST[kelas]',
-                                '$_POST[kategori_penumpang]',
-                                '$_POST[one_way]',
-                                '$_POST[pp]')");
+                                '$_POST[sebulan]',
+                                '$_POST[setahun]')");
   header('location:../../media.php?module='.$module);
 }
 
 elseif ($module=='ongkos' AND $act=='update'){
   mysql_query("UPDATE tarif SET kelas 				= '$_POST[kelas]',
-                                kategori_penumpang	= '$_POST[kategori_penumpang]',
-                                one_way    			= '$_POST[one_way]',
-							    pp    				= '$_POST[pp]'
+                                sebulan    			= '$_POST[sebulan]',
+							                  setahun    				= '$_POST[setahun]'
                           WHERE id_tarif = '$_POST[id]'");
   header('location:../../media.php?module='.$module);
 }

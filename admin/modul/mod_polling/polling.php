@@ -5,7 +5,7 @@
 <?php
 	$host = 'localhost';
 	$user = 'root';
-	$pass = 'root';
+	$pass = '';
 	$db = 'koran';
 
 	$conn = mysql_connect($host, $user, $pass);
@@ -53,7 +53,7 @@
 	array_push($series, $passivers);
 	array_push($series, $promote);
 
-	$npa = ($pro / $all_result) - ($det / $all_result);
+	$npa = ($pro / $all_result) - ($det / $all_result) ;
 	$categories = array("NPS = {$npa}");
 
 ?>
@@ -88,7 +88,7 @@ $('#contoh').highcharts({
 			align: 'center'
 		},
 		title: {
-				text: 'pelanggan kita loyalitas dengan ansumsi jika nilai: NPS (-) tidak loyal; Nps (+) loyal'
+				text: 'Nilai NPS Terendah (-100) ; NPS Tertinggi (+100) | 30% (Good) . 50% (Leader) . 70%< (Excellent) '
 		}
 	},
 	series: <?php echo json_encode($series); ?>

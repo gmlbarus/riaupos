@@ -1,8 +1,8 @@
 <?php
 switch ($_GET['page']){
-	case "tiket":
+	case "koran":
 		if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isset($_SESSION[basyenklevel])){
-			include "page/tiket.php";
+			include "page/koran.php";
 		}
 		break;
 	{
@@ -55,6 +55,10 @@ switch ($_GET['page']){
 
 	case "stop":
 		include "page/stop.php";
+		break;	
+
+	case "konfirmasi":
+		include "page/konfirmasi2.php";
 		break;	
 
 	case "ubah-password":

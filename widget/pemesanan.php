@@ -7,7 +7,7 @@ else{
 }
 ?>
 <h3 class="orangetext" style="color: #000000; text-align: center;">REGISTRASI</h3>
-<hr color="#c5a430" size="1">
+<hr color="#000000" size="1">
 <div class="clear"></div>
 <div class="block-content">
 	<div class="summary">

@@ -8,8 +8,8 @@ if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isse
 		} );
 	} );</script>
 
-	<h1>Data Order</h1>
-	<hr color='#c5a430' size='1'>
+	<h1>Koran</h1>
+	<hr color='#000000' size='1'>
 
 	<?php
 	$query 	= mysql_query("	SELECT `a`.*, `b`.`nama` FROM `order` `a` JOIN `profil` `b`
@@ -138,10 +138,10 @@ if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isse
 		}
 
 		echo "
-		<hr color='#c5a430' size='1'>
+		<hr color='#000000' size='1'>
 		<br><br>
-		<h1>Detail Order</h1>
-		<hr color='#c5a430' size='4'>
+		<h1>Detail Koran</h1>
+		<hr color='#000000' size='4'>
 		<form name='form' action='' method='post'>
 		<table cellpadding=0 border=0 width=670>
 			<tbody>
@@ -311,6 +311,123 @@ if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isse
 		echo "</form>
 		<br>";
 
+		echo "
+		<table cellpadding='0' border='0' width='670'>
+			<tbody>
+			<tr style='border-bottom: 1px solid #c5a430; text-align:left;'>
+				<th>No.</th>
+				<th>Rute & Tanggal Keberangkatan</th>
+				<th>Kategori</th>
+				<th>Jumlah</th>
+				<th>Tarif</th>
+				<th>Diskon</th>
+				<th>Total</th>
+			</tr>";
+
+			$query_p = mysql_query("select * from order_detail where id_order='$_GET[id]'");
+			while($p = mysql_fetch_array($query_p)){
+				$param[]	= $p[rute];
+				$kategori[]	= $p[kategori];
+				$qty[]		= $p[qty];
+				$tarif[]	= $p[tarif];
+				$diskon[]	= $p[diskon];
+				$total[]	= (($p[qty]*$p[tarif])-($p[qty]*$p[tarif])*$p[diskon]);
+			}
+
+			$query_r = mysql_query("select rute,tgl_berangkat from order_detail where id_order='$_GET[id]' group by rute order by tgl_berangkat");
+			$jml_r	 = mysql_num_rows($query_r);
+			if($jml_r == 1) $trip = 'oneway';
+			if($jml_r == 2) $trip = 'return';
+			while($r = mysql_fetch_array($query_r)){
+				$rute[]	= $r[rute];
+				$tgl[]	= $r[tgl_berangkat];
+			}
+
+			//if($trip=='oneway') $rowspan = 1;
+			//($trip=='return') $rowspan = (count($kategori)/$jml_r);
+			$rowspan = (count($kategori)/$jml_r);
+
+			$rowspan = "rowspan='".$rowspan."'";
+
+			$urut = 0;
+			for($i=0; $i<count($kategori); $i++){
+				if($diskon[$i]=='0') $teks_diskon = '0';
+				if($diskon[$i]=='0.1') $teks_diskon = '10%';
+
+				echo "<tr>";
+				if($param[$i] != $param[($i-1)]){
+					echo "<td width='30' $rowspan>".($urut+1)."</td>";
+					echo "<td $rowspan><b>".$rute[$urut]."</b><br><i>".tgl_indo($tgl[$urut])."</i></td>";
+					$urut++;
+				}
+				echo "
+					<td>".$kategori[$i]."</td>
+					<td>".$qty[$i]." Orang</td>
+					<td>Rp. ".format_rupiah($tarif[$i])."</td>
+					<td>".$teks_diskon."</td>
+					<td>Rp. ".format_rupiah($total[$i])."</td>
+				</tr>
+				";
+				$total_tarif = ($total_tarif + $total[$i]);
+			}
+
+			echo "
+			<tr>
+				<td colspan='6'><b>SUB TOTAL</b></td>
+				<td><b>Rp. ".format_rupiah($total_tarif)."</b></td>
+			</tr>
+			";
+
+			$query_m  = mysql_query("select o.*,m.nama from order_meal o inner join makanan m on m.id_makanan=o.id_makanan where o.id_order='$_GET[id]'");
+			$query_pi = mysql_query("select * from order_pijat where id_order='$_GET[id]'");
+
+			$jml_m	  = mysql_num_rows($query_m);
+			$jml_pi	  = mysql_num_rows($query_pi);
+
+			if($jml_m > 0 or $jml_pi>0){
+				echo "<tr style='border-bottom: 1px solid #c5a430; text-align:left;'>
+						<th>No.</th>
+						<th colspan=5>Layanan Ekstra</th>
+						<th>Total</th>
+					</tr>";
+
+				$no = 1;
+				while($m = mysql_fetch_array($query_m)){
+					echo "
+					<tr>
+						<td>$no</td>
+						<td colspan=5>$m[nama]</td>
+						<td>Rp. ".format_rupiah($m[tarif])."</td>
+					</tr>";
+					$total_ekstra = ($total_ekstra + $m[tarif]);
+					$no++;
+				}
+
+				while($pi = mysql_fetch_array($query_pi)){
+					$tarif_pi = $pi[tarif];
+					echo "
+					<tr>
+						<td>$no</td>
+						<td colspan=5>Pijat</td>
+						<td>Rp. ".format_rupiah($tarif_pi)."</td>
+					</tr>";
+					$total_ekstra = ($total_ekstra + $tarif_pi);
+					$no++;
+				}
+
+				echo "
+					<tr>
+						<td colspan='6'><b>SUB TOTAL</b></td>
+						<td><b>Rp. ".format_rupiah($total_ekstra)."</b></td>
+					</tr>";
+			}
+
+		echo "<tr>
+				<td colspan='6'><b>TOTAL</b></td>
+				<td><b>Rp. ".format_rupiah($total_tarif+$total_ekstra)."</b></td>
+			</tr>
+			</tbody>
+		</table>";
 	}
 }
 ?>
