@@ -11,8 +11,8 @@ function sendSMS($recipient, $msg){
   $msgLen = strlen($msg);
   $result = "";
   $output = '';
-  $command = "../../../gammu/bin/gammu-smsd-inject.exe TEXT $recipient -len $msgLen -text '$msg'";
-
+  $command = "../../../gammu/bin/gammu-smsd-inject.exe -c ../../../gammu/bin/.gammurc TEXT $recipient -len $msgLen -text '$msg'";
+  $altCommand = "../../../gammu/gammu.exe --sendsms TEXT {$recipient} -text '{$msg}'";
   $result .= "executing command: $command \n";
 
   passthru($command, $output);

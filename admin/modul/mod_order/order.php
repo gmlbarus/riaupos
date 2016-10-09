@@ -38,7 +38,7 @@ else{
 		$no = 1;
 		while($r=mysql_fetch_array($query)){
 			$img	= "<a href='media.php?module=pemesanan&page=koran&mode=detail&id=$r[invoice]' title='Lihat detail'><img src='../images/detail.png'></a>
-      <a href='media.php?module=pemesanan&page=koran&mode=detail&id=$r[invoice]'><b>| validasi </b></a>";
+      <a href='media.php?module=pemesanan&page=koran&mode=validate&id=$r[invoice]'><b>| validasi </b></a>";
 			if($r[status]=='Belum Lunas') {
 				$status = 'Pending';
 			}
@@ -65,11 +65,16 @@ else{
 		echo "<p>Tidak ada data yang ditampilkan.</p>";
 	}
 
-
+	if ($_GET[mode] == 'validate'){
+		$invoice = $_GET['id'];
+		$query = "UPDATE `order` SET `konfirmasi` = 'lunas' WHERE `invoice` = '{$invoice}'";
+		mysql_query($query);
+		echo "<script>alert('pembayaran invoice #{$_GET[id]} telah divalidasi');</script>";
+	}
 	if($_GET[mode]=='detail'){
 		function index($teks){
 			switch($teks){
-				
+
 			}
 			return $string;
 		}
@@ -97,7 +102,7 @@ else{
 					$nam[] = $p[nama];
 					$jk[]  = $p[jk];
 				}
-				mysql_query("delete from order_seat where id_order='$_GET[id]'");			
+				mysql_query("delete from order_seat where id_order='$_GET[id]'");
 
 				echo "<script>alert('Proses upgrade class anda telah disimpan. Selamat anda mendapatkan promo pijat gratis. Terima kasih !');
 				window.location = 'media.php?page=tiket'</script>";
@@ -187,12 +192,12 @@ else{
 				<td width=10>:</td>
 				<td><b>".strtoupper($o[konfirmasi])."</b></td>
 			</tr>
-		
+
 					<input type='hidden' name='kelas_temp' value='$o[kelas]'>
 					<input type='hidden' name='trip' value='$o[trip]'>";
 					if($o[status]=='Belum Lunas'){
 					}
-			 
+
 			echo "</b></td>
 			</tr-->
 			<tr>

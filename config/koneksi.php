@@ -1,7 +1,7 @@
 <?php
 $server = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $database = "koran";
 
 // Koneksi dan memilih database di server
