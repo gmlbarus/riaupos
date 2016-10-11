@@ -18,7 +18,7 @@ if($_POST[kirim]!=""){
 ?>
 
 <h1>Saran dan Kritik</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#000000' size='1'>
 
 <div class="register form">
 	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">

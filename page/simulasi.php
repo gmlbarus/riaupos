@@ -1,5 +1,5 @@
 <h1>Simulasi Pemesanan</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#000000' size='1'>
 
 <video width="670" controls = "controls">
   <source src="video/kapal.mp4" type="video/mp4" >

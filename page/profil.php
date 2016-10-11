@@ -1,5 +1,5 @@
 <h1>Profil</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#000000' size='1'>
 				  
 <?php
 $query 	= mysql_query("SELECT * FROM konten WHERE grup='profil'");

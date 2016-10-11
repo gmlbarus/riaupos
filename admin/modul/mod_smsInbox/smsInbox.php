@@ -15,12 +15,12 @@ while ($r=mysql_fetch_array($tampil)){
   $tipe = $text[1];
   $pesan = $text[2];
   echo "<tr><td>$no</td>
-			<td>$r[DestinationNumber]</td>
+			<td>$r[SenderNumber]</td>
 			<td>{$pesan}</td>
 			<td>$r[ReceivingDateTime]</a></td>
 			<td>{$tipe}</td>
 		</tr>";
-		   	
+
 $no++;
 }
 echo "</table>";

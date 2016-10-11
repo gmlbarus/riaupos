@@ -58,7 +58,7 @@ switch ($_GET['page']){
 		break;	
 
 	case "konfirmasi":
-		include "page/konfirmasi2.php";
+		include "page/konfirmasi.php";
 		break;	
 
 	case "ubah-password":

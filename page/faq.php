@@ -6,7 +6,7 @@ $(document).ready(function() {
 } );</script>
 
 <h1>FAQ</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#000000' size='1'>
 				  
 <?php
 if($_GET[mode]=='detail'){

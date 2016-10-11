@@ -1,6 +1,7 @@
 <?php
 
 echo "<h2>Data Pelanggan</h2>
+ 	  <input type=button class=tombol value='Tambah Data' onclick=location.href='?module=pelanggan&act=tambah'>
 	  <table>
 	  <tr><th>No</th><th>Nama</th><th>Tanggal Lahir</th><th>Alamat</th><th>Email</th><th>No. HP</th><th>Tanggal Registrasi</th></tr>";
 
@@ -30,7 +31,7 @@ while ($r=mysql_fetch_array($tampil)){
 $no++;
 }
 echo "</table>";
-$jmldata=mysql_num_rows(mysql_query("SELECT * FROM hubungi"));
+$jmldata=mysql_num_rows(mysql_query("SELECT * FROM hasil_polling"));
 $jmlhalaman  = $p->jumlahHalaman($jmldata, $batas);
 $linkHalaman = $p->navHalaman($_GET[halaman], $jmlhalaman);
 

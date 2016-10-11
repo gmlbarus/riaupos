@@ -14,7 +14,7 @@ if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isse
 ?>
 
 	<h1>Ubah Password</h1>
-	<hr color='#c5a430' size='1'>
+	<hr color='#000000' size='1'>
 
 	<div class="register form">
 		<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">

@@ -46,12 +46,12 @@ if($_POST[registrasi]!=""){
 ?>
 
 <h1>Registrasi</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#000000' size='1'>
 
 <div class="register form">
 	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">
 	<h3>Informasi Login</h3>
-	<hr color="#c5a430" size="1">
+	<hr color="#000000" size="1">
 	<div class="clearfix">
 		<div class="left">
     		<div class="input email"><label for="email">Email :</label><input name="email" size="40" required="required" type="email" id="UserEmail"/></div>
@@ -70,7 +70,7 @@ if($_POST[registrasi]!=""){
 
 	
 	<h3>Data Pribadi</h3>
-	<hr color="#c5a430" size="1">
+	<hr color="#000000" size="1">
 
 	<div class="input text"><label for="nama">Nama :</label><input name="nama" required="required" size="64" maxlength="125" type="text" id="nama"/></div>
     	
