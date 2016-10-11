@@ -15,7 +15,11 @@ function sendSMS($recipient, $msg){
   $altCommand = "../../../gammu/gammu.exe --sendsms TEXT {$recipient} -text '{$msg}'";
   $result .= "executing command: $command \n";
 
-  passthru($command, $output);
+  $query = "INSERT INTO `gammu`.`outbox` (`Text`, `DestinationNumber`, `CreatorID`) VALUES ('{$msg}', '{$recipient}', 'gammu')";
+
+  mysql_query($query);
+
+  // passthru($command, $output);
 
   $result .= ' (out) ' . $output." \n";
 
