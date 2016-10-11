@@ -11,11 +11,16 @@ $tampil=mysql_query("SELECT * FROM `gammu`.`inbox` ORDER BY ReceivingDateTime DE
 
 $no = $posisi+1;
 while ($r=mysql_fetch_array($tampil)){
+  $text = explode('#', $r[Text]);
+  $tipe = $text[1];
+  $pesan = $text[2];
   echo "<tr><td>$no</td>
 			<td>$r[DestinationNumber]</td>
-			<td>$r[Text]</td>
-			<td>$r[ReceivingDateTime]</a></td></tr>";
-		   
+			<td>{$pesan}</td>
+			<td>$r[ReceivingDateTime]</a></td>
+			<td>{$tipe}</td>
+		</tr>";
+		   	
 $no++;
 }
 echo "</table>";
