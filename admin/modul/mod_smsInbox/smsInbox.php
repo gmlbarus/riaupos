@@ -1,7 +1,7 @@
 <?php
-echo "<h2>SMS Outbox</h2>
+echo "<h2>SMS Inbox</h2>
 	  <table>
-	  <tr><th>No</th><th>Tujuan</th><th>Pesan</th><th>Tanggal Input</th><th>Tipe</tr>";
+	  <tr><th>No</th><th>Asal</th><th>Pesan</th><th>Tanggal Terima</th><th>Tipe</tr>";
 
 $p      = new Paging;
 $batas  = 10;

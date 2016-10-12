@@ -1,8 +1,26 @@
 <?php
+if($_POST[kirim]!=""){
+	$query 	= mysql_query("INSERT INTO hubungi(nama,email,tipe,pesan,tgl_input)
+						VALUES (
+						'".mysql_real_escape_string($_POST[nama])."',
+						'".mysql_real_escape_string($_POST[email])."',
+						'".mysql_real_escape_string($_POST[tipe])."',
+						'".mysql_real_escape_string($_POST[pesan])."',
+						now())");
+
+	if($query){
+		echo "<script>alert('Data anda telah kami terima. Terima kasih');</script>";
+	}
+	else{
+		echo "<script>alert('Gagal mengirim data');</script>";
+	}
+}
+
 $aksi="modul/mod_saran-kritik/aksi.php";
 switch($_GET[act]){
   default:
     echo "<h2>Saran dan Kritik</h2>
+          <input type=button class=tombol value='Tambah Data' onclick=location.href='?module=saran-kritik&act=tambah'>
           <table>
           <tr><th>No</th><th>Nama</th><th>Email</th><th>Tipe</th><th>Pesan</th><th>Tanggal Masuk</th></tr>";
 
@@ -21,7 +39,7 @@ switch($_GET[act]){
                 <td>$r[tipe]</td>
 				<td>$r[pesan]</td>
                 <td>$tgl</a></td></tr>";
-               
+
     $no++;
     }
     echo "</table>";
@@ -41,19 +59,66 @@ switch($_GET[act]){
           <table>
           <tr><td>Kepada</td><td> : <input type=text name='email' size=30 value='$r[email]'></td></tr>
           <tr><td>Subjek</td><td> : <input type=text name='subjek' size=50 value='Re: $r[subjek]'></td></tr>
-          <tr><td>Pesan</td><td> <textarea name='pesan' style='width: 600px; height: 350px;'><br><br><br><br>     
+          <tr><td>Pesan</td><td> <textarea name='pesan' style='width: 600px; height: 350px;'><br><br><br><br>
   ----------------------------------------------------------------------------------------------------------------------
   $r[pesan]</textarea></td></tr>
           <tr><td colspan=2><input type=submit value=Kirim>
                             <input type=button value=Batal onclick=self.history.back()></td></tr>
           </table></form>";
      break;
-    
+
   case "kirimemail":
     mail($_POST[email],$_POST[subjek],$_POST[pesan],"From: no-reply@basyenk.info");
     echo "<h2>Status Email</h2>
           <p>Email telah sukses terkirim ke tujuan</p>
-          <p>[ <a href=javascript:history.go(-2)>Kembali</a> ]</p>";	 		  
-    break;  
+          <p>[ <a href=javascript:history.go(-2)>Kembali</a> ]</p>";
+    break;
+
+  case "tambah":
+      ?>
+      <h1>Saran dan Kritik</h1>
+      <hr color='#000000' size='1'>
+
+      <div class="register form">
+      	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">
+
+      	<div class="input textarea"><label for="negara">Tipe :</label>
+          	<select name="tipe" id="tipe">
+      			<?php
+      			echo "<option value='0' selected='selected'>-- Pilih Tipe --</option>";
+      			$tampil=mysql_query("SELECT deskripsi,deskripsi FROM konten WHERE grup='tipe'");
+                	while($r=mysql_fetch_array($tampil)){
+      				echo "<option value='$r[deskripsi]'>$r[deskripsi]</option>";
+                	}
+      			?>
+              </select>
+          </div>
+
+      	<div class="input text"><label for="nama">Nama :</label><input name="nama" required="required" size="30" type="text" id="nama"/></div>
+
+          <div class="input email"><label for="email">Email :</label><input name="email" size="30" required="required" type="email" id="UserEmail"/></div>
+
+      	<div class="input textarea"><label for="pesan">Pesan :</label><textarea name="pesan" required="required" style="height:50px" cols="30" rows="6" id="pesan"></textarea></div>
+
+      	<div class="clear"></div>
+      	<div class="submit"><input type="submit" value="Kirim" name="kirim"/></div></form>
+      </div>
+
+
+
+
+      <script language="javascript">
+      function validasi(form){
+        if (form.tipe.value == 0){
+          alert("Tipe belum dipilih...");
+          form.tipe.focus();
+          return (false);
+        }
+
+        return (true);
+      }
+      </script>
+      <?php
+      break;
 }
 ?>
