@@ -1,7 +1,7 @@
 <?php
 echo "<h2>SMS Outbox</h2>
 	  <table>
-	  <tr><th>No</th><th>Tujuan</th><th>Pesan</th><th>Tanggal Input</th></tr>";
+	  <tr><th>No</th><th>Tujuan</th><th>Pesan</th><th>Tanggal Input</th><th>Tipe</tr>";
 
 $p      = new Paging;
 $batas  = 10;
@@ -12,8 +12,8 @@ $tampil=mysql_query("SELECT * FROM `gammu`.`inbox` ORDER BY ReceivingDateTime DE
 $no = $posisi+1;
 while ($r=mysql_fetch_array($tampil)){
   $text = explode('#', $r[Text]);
-  $tipe = $text[1];
-  $pesan = $text[2];
+  $tipe = $text[1] == '' ? 'Invalid Type' : $text[1];
+  $pesan = $text[2] == '' ? 'Invalid Message' : $text[2];
   echo "<tr><td>$no</td>
 			<td>$r[SenderNumber]</td>
 			<td>{$pesan}</td>

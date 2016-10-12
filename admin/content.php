@@ -35,6 +35,10 @@ switch ($_GET[module]) {
 		if ($_SESSION['leveluser']=='0') include "modul/mod_smsoutbox/smsoutbox.php";
 		break;
 
+	case 'smsInbox':
+		if ($_SESSION['leveluser']=='0') include "modul/mod_smsInbox/smsInbox.php";
+		break;
+
 	case 'pemesanan':
 		if ($_SESSION['leveluser']=='0' or $_SESSION['leveluser']=='1') include "modul/mod_order/order.php";
 		break;
@@ -93,12 +97,12 @@ switch ($_GET[module]) {
 
 	case 'login':
 		if ($_SESSION['leveluser']=='0') include "modul/mod_login/login.php";
-		break;	
+		break;
 
 	case 'polling2':
 		if ($_SESSION['leveluser']=='0') include "modul/mod_polling2/polling2.php";
 		break;
-	
+
 
 	case 'laporan-agen':
 		if ($_SESSION['leveluser']=='1') include "modul/mod_laporan-agen/agen.php";
