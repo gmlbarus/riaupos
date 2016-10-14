@@ -10,12 +10,12 @@ if (empty($_SESSION['namauser']) AND empty($_SESSION['passuser'])){
 	echo "<a href=../../index.php><b>LOGIN</b></a></center>";
 }
 else{
-	$aksi="modul/mod_smsbroadcast/aksi.php";
+	$aksi="modul/mod_smsSend/aksi.php";
     $edit = mysql_query("SELECT * FROM profil");
     $jml  = mysql_num_rows($edit);
 
     echo "<h2>SMS Broadcast</h2>
-          <form method=POST enctype='multipart/form-data' action=$aksi?module=smsbroadcast&act=update>
+          <form method=POST enctype='multipart/form-data' action=$aksi?module=smsSend&act=broadcast>
           <table>
           <tr><td>Jumlah Pelanggan</td>	<td>  : $jml</td></tr>
 		  <tr><td>Isi Pesan</td>		<td>  : <textarea name='pesan' style='width: 600px; height: 50px;'></textarea></td></tr>
