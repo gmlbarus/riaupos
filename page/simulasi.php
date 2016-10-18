@@ -24,28 +24,30 @@
 		</div>
 
     <script>
-    Number.prototype.format = function(n, x) {
-    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
-};
-
     function hitungHarga(){
       var nominal = document.getElementById("nominal").value;
       if (isNaN(nominal)){
         alert("Nominal tidak valid. Silakan masukkan bilangan");
       }
       else{
-        var eksemplar = Math.floor(nominal / 3500);
-        var langganan = Math.floor(nominal / 79000);
+				<?php
+				$query = "SELECT * FROM `tarif` LIMIT 1";
+				$res = mysql_query($query);
+				$r = mysql_fetch_array($res);
+				?>
+				var satuan = <?php echo $r[satuan] ?>;
+				var bulanan = <?php echo $r[sebulan] ?>;
+				var tahunan = <?php echo $r[setahun] ?>;
+        var eksemplar = Math.floor(nominal / satuan);
+        var langganan = Math.floor(nominal / bulanan);
         document.getElementById("jumlah_eksemplar").innerHTML = eksemplar;
         document.getElementById("jumlah_langganan").innerHTML = langganan;
-        // alert(langganan);
       }
 
     }
     </script>
 
-<br \> <br \> <br \> <br \> 
+<br \> <br \> <br \> <br \>
 <h2>SMS Gateway</h2>
 <hr color='#000000' size='0'>
 
@@ -60,13 +62,13 @@
 
 		<p> <b> o Informasi. </b> </p>
 		<p> #INFO_AGEN<br \>
-		<p> #INFO_REKENING PEMBAYARAN<br \>	
+		<p> #INFO_REKENING PEMBAYARAN<br \>
 		<p> #INFO_LOGIN_EMAIL<br \>
 		<p> #INFO_FAQ<br \>
 		<p> #INFO_TARIF & JADWAL<br \>
 		<p> #INFO_AGEN<br \>
 		<p> #INFO_PROMO<br \>
-		<p> #INFO_ORDER_INVOICE<br \>						
+		<p> #INFO_ORDER_INVOICE<br \>
 			Kirim ke : 08xxxxxxxxxx </spasi></p><br \>
 
 		<p> <b> o Jawab Polling. </b> </p>
@@ -77,4 +79,4 @@
 		<p> <b> o Saran Kritik. </b> </p>
 		<p> #SARAN / KRITIK_Pesan <br \>
 			Contoh : #SARAN / KRITIK_Maksimalkan Lagi.<br \>
-			Kirim ke : 08xxxxxxxxxx </spasi></p><br \>			
+			Kirim ke : 08xxxxxxxxxx </spasi></p><br \>

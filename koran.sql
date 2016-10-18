@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2016 at 11:48 AM
+-- Generation Time: Oct 18, 2016 at 02:59 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `koran`
+-- Database: `riau`
 --
 
 -- --------------------------------------------------------
@@ -50,7 +50,6 @@ INSERT INTO `agen` (`id_agen`, `nama`, `alamat`, `hp`, `aktif`, `tgl_input`) VAL
 (8, 'PT. Mitra  Tour & Travel', 'JL. Basuki Rahmat Mall (PTC) Palembang ', '(0711) 822382', 'Y', '2014-11-17 09:44:04'),
 (9, 'PT. Ferga Delaga Dunia', 'JL. Mayor Salim Sekip Ujung Palembang', '(0711) 371831', 'Y', '2014-11-17 09:44:54'),
 (10, 'PT. Batas Nusa', 'JL. Basuki Rahmat', '(0711) 372696', 'Y', '2014-11-17 09:45:51'),
-(11, 'PT. Paris', 'JL. Letkol  Iskandar (PIM) Palembang ', '(0711) 316591', 'Y', '2014-11-17 09:46:43'),
 (12, 'PT. Rapi', 'JL. Tanjung Siapi-Api ', '(0711) 389766', 'Y', '2014-11-17 09:47:37');
 
 -- --------------------------------------------------------
@@ -72,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `bank` (
 
 INSERT INTO `bank` (`id_bank`, `nama_bank`, `norek`, `nama_pemilik`) VALUES
 (5, 'Mandiri', '900000', 'Eben Hezer Josapat Hasugian'),
-(6, 'BCA', '12345678', 'Eben Hezer Josapat Hasugian');
+(6, 'BNI', '12345678', 'Eben Hezer Josapat Hasugian');
 
 -- --------------------------------------------------------
 
@@ -289,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `konfirmasi` (
   `pesan` text NOT NULL,
   `img` varchar(100) NOT NULL,
   `tgl_input` date NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `konfirmasi`
@@ -304,7 +303,8 @@ INSERT INTO `konfirmasi` (`id_konfirmasi`, `invoice`, `nama`, `pesan`, `img`, `t
 (13, '551edf9fa968', 'lelyrasti@ymail.com', 'maniss kalekk...', 'struk-6.jpg', '2016-09-27'),
 (14, '49CA4AA3D82E', 'RASTI', 'manis...', 'struk-2.jpg', '2016-09-30'),
 (15, 'b69d6dbc9968', 'Sakit', 'Terimakasih.\r\n', 'struk-3.jpg', '2016-09-30'),
-(16, '37bc15e9c7ae', 'coba', 'done\r\n', 'C:\\xampp\\htdocs\\riaupos-develop\\foto_konfirmasi\\struk-1.jpg', '2016-10-11');
+(16, '37bc15e9c7ae', 'coba', 'done\r\n', 'C:\\xampp\\htdocs\\riaupos-develop\\foto_konfirmasi\\struk-1.jpg', '2016-10-11'),
+(17, 'c2b1afc515f7', 'coba', 'sudah', 'C:\\xampp\\htdocs\\koran\\foto_konfirmasi\\struk-5.jpg', '2016-10-16');
 
 -- --------------------------------------------------------
 
@@ -892,6 +892,7 @@ CREATE TABLE IF NOT EXISTS `login` (
 
 INSERT INTO `login` (`username`, `pass`, `grup`, `status`) VALUES
 ('admin', '21232f297a57a5a743894a0e4a801fc3', '0', 'Y'),
+('aksiku@gmail.com', '19351f0df296e6e73c827a2fff8dbed1', '2', 'Y'),
 ('budianto@gmail.com', '00dfc53ee86af02e742515cdcf075ed3', '2', 'Y'),
 ('coba@gmail.com', 'c3ec0f7b054e729c5a716c8125839829', '2', 'Y'),
 ('ebenhezerhasugian@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', '2', 'Y'),
@@ -913,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `url` varchar(100) DEFAULT NULL,
   `grup` int(10) unsigned DEFAULT NULL,
   `aktif` enum('Y','N') DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `menu`
@@ -944,7 +945,8 @@ INSERT INTO `menu` (`id_menu`, `menu`, `url`, `grup`, `aktif`) VALUES
 (24, 'SMS Send', '?module=smsSend', 0, 'Y'),
 (25, 'Data Konfirmasi', '?module=konfirmasi', 0, 'Y'),
 (26, 'Data Login', '?module=login', 0, 'Y'),
-(27, 'Data Polling', '?module=polling2', 0, 'Y');
+(27, 'Data Polling', '?module=polling2', 0, 'Y'),
+(28, 'SMS Inbox', '?module=smsinbox', 0, 'Y');
 
 -- --------------------------------------------------------
 
@@ -972,7 +974,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 INSERT INTO `order` (`invoice`, `username`, `koran_1`, `koran_2`, `pembayaran_via`, `harga`, `sebanyak`, `jatuh_tempo`, `masa_aktif`, `konfirmasi`) VALUES
 ('37bc15e9c7ae', 'coba@gmail.com', 'bisnis', 'sport', 'mobile_banking', 158046, 2, '2016-10-17', 60, 'lunas'),
 ('672a6ed06a31', 'coba@gmail.com', 'sport', 'sport', 'mobile_banking', 869090, 11, '2016-10-12', 330, 'lunas'),
-('87d72edd969c', 'sakit@gmail.com', 'sport', 'health', 'internet_banking', 632057, 8, '2016-10-16', 240, 'lunas');
+('87d72edd969c', 'sakit@gmail.com', 'sport', 'health', 'internet_banking', 632057, 8, '2016-10-16', 240, 'lunas'),
+('c2b1afc515f7', 'coba@gmail.com', 'health', 'teknologi', 'setoran_tunai', 553038, 7, '2016-10-23', 210, 'lunas');
 
 -- --------------------------------------------------------
 
@@ -1020,7 +1023,7 @@ CREATE TABLE IF NOT EXISTS `profil` (
   `email` varchar(100) DEFAULT NULL,
   `hp` varchar(15) DEFAULT NULL,
   `tgl_input` datetime DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `profil`
@@ -1043,7 +1046,8 @@ INSERT INTO `profil` (`id_profil`, `nama`, `tgl_lahir`, `alamat`, `id_provinsi`,
 (16, 'rasti', '2000-09-12', 'lampung', '33', '197', '28772', 'lelyrasti@ymail.com', '085265904015', '2016-09-12 19:12:00'),
 (17, 'simanis', '2000-10-06', 'Pekanbaru', '61', '313', '28774', 'manis@gmail.com', '085267689012', '2016-10-06 12:33:09'),
 (18, 'Jufri Angga Ginting', '1992-02-01', 'Timbangan', '16', '108', '44105', 'jufri@gmail.com', '081265286446', '2016-10-10 13:54:48'),
-(19, 'Budianto Hasugian', '2000-10-10', 'Pekanbaru.', '51', '272', '28774', 'budianto@gmail.com', '089626584755', '2016-10-10 14:36:03');
+(19, 'Budianto Hasugian', '2000-10-10', 'Pekanbaru.', '51', '272', '28774', 'budianto@gmail.com', '089626584755', '2016-10-10 14:36:03'),
+(20, 'aksi saya', '2000-10-21', 'fwdfw', '19', '140', '28774', 'aksiku@gmail.com', '0895357896947', '2016-10-18 00:12:43');
 
 -- --------------------------------------------------------
 
@@ -1156,7 +1160,7 @@ CREATE TABLE IF NOT EXISTS `sms_outbox` (
   `pesan` varchar(250) DEFAULT NULL,
   `port` int(10) NOT NULL,
   `tgl_input` datetime NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=140 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=142 ;
 
 --
 -- Dumping data for table `sms_outbox`
@@ -1170,7 +1174,9 @@ INSERT INTO `sms_outbox` (`id_sms_outbox`, `tujuan`, `pesan`, `port`, `tgl_input
 (136, '089626584755', 'Terimakasih.', 14, '2016-10-10 14:37:16'),
 (137, '089626584755', 'halooo...', 14, '2016-10-10 14:38:18'),
 (138, '089626584755', 'okeh.', 14, '2016-10-10 14:39:11'),
-(139, '089626584755', 'haloo', 14, '2016-10-10 14:52:41');
+(139, '089626584755', 'haloo', 14, '2016-10-10 14:52:41'),
+(140, '085265904015', 'cek lagi....', 14, '2016-10-18 00:01:53'),
+(141, '0895357896947', 'kamu dimana?', 14, '2016-10-18 00:13:07');
 
 -- --------------------------------------------------------
 
@@ -1180,7 +1186,8 @@ INSERT INTO `sms_outbox` (`id_sms_outbox`, `tujuan`, `pesan`, `port`, `tgl_input
 
 CREATE TABLE IF NOT EXISTS `tarif` (
 `id_tarif` int(20) NOT NULL,
-  `kelas` enum('Reguler','Platinum','Gold') DEFAULT NULL,
+  `koran` varchar(100) DEFAULT NULL,
+  `satuan` double NOT NULL,
   `sebulan` double DEFAULT NULL,
   `setahun` double DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
@@ -1189,10 +1196,8 @@ CREATE TABLE IF NOT EXISTS `tarif` (
 -- Dumping data for table `tarif`
 --
 
-INSERT INTO `tarif` (`id_tarif`, `kelas`, `sebulan`, `setahun`) VALUES
-(1, 'Reguler', 79000, 800000),
-(2, 'Platinum', 79000, 700000),
-(3, 'Gold', 79000, 600000);
+INSERT INTO `tarif` (`id_tarif`, `koran`, `satuan`, `sebulan`, `setahun`) VALUES
+(1, 'Reguler', 3000, 79000, 800000);
 
 -- --------------------------------------------------------
 
@@ -1370,7 +1375,7 @@ MODIFY `id_jadwal` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-MODIFY `id_konfirmasi` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `id_konfirmasi` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `konten`
 --
@@ -1380,7 +1385,7 @@ MODIFY `id_konten` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-MODIFY `id_menu` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `id_menu` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `polling`
 --
@@ -1390,7 +1395,7 @@ MODIFY `id_polling` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `profil`
 --
 ALTER TABLE `profil`
-MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `promo`
 --
@@ -1405,7 +1410,7 @@ MODIFY `id_sms_history` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=
 -- AUTO_INCREMENT for table `sms_outbox`
 --
 ALTER TABLE `sms_outbox`
-MODIFY `id_sms_outbox` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=140;
+MODIFY `id_sms_outbox` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=142;
 --
 -- AUTO_INCREMENT for table `tarif`
 --
