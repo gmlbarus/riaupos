@@ -50,15 +50,15 @@ else if ($_GET['act'] == 'tambah'){
   	<hr color="#000000" size="1">
   	<div class="clearfix">
   		<div class="left">
-      		<div class="input email"><label for="email">Email :</label><input name="email" size="40" required="required" type="email" id="UserEmail"/></div>
+      		<div class="input email"><label for="email">Email : &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp: </label><input name="email" size="40" required="required" type="email" id="UserEmail"/></div>
       	</div>
   		<div class="clear"></div>
   		<div class="left">
-      		<div class="input password"><label for="password_1">Password :</label><input name="password_1" size="40" required="required" type="password" id="password_1"/></div>
+      		<div class="input password"><label for="password_1">Password &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp : </label><input name="password_1" size="40" required="required" type="password" id="password_1"/></div>
       	</div>
   		<div class="clear"></div>
   		<div class="left">
-      		<div class="input password"><label for="password_2">Ulangi Password :</label><input name="password_2" size="40" required="required" type="password" id="password_2"/></div>
+      		<div class="input password"><label for="password_2">Ulangi Password &nbsp &nbsp &nbsp: </label><input name="password_2" size="40" required="required" type="password" id="password_2"/></div>
   		</div>
 
       </div>
@@ -68,11 +68,11 @@ else if ($_GET['act'] == 'tambah'){
   	<h3>Data Pribadi</h3>
   	<hr color="#000000" size="1">
 
-  	<div class="input text"><label for="nama">Nama :</label><input name="nama" required="required" size="64" maxlength="125" type="text" id="nama"/></div>
+  	<div class="input text"><label for="nama">Nama &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp: </label><input name="nama" required="required" size="64" maxlength="125" type="text" id="nama"/></div>
 
   	<div class="clearfix">
   		<div class="left">
-          	<div class="input date"><label for="tanggal_lahir">Tanggal Lahir :</label>
+          	<div class="input date"><label for="tanggal_lahir">Tanggal Lahir &nbsp &nbsp &nbsp &nbsp &nbsp:</label>
               	<?php
   				combotgl(1,31,'tgl_lahir',$tgl_skrg);
             		combonamabln(1,12,'bln_lahir',$bln_sekarang);
@@ -82,7 +82,7 @@ else if ($_GET['act'] == 'tambah'){
   		</div>
   	</div>
 
-  	<div class="input textarea"><label for="negara">Provinsi :</label>
+  	<div class="input textarea"><label for="negara">Provinsi &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp :</label>
       	<select name="provinsi" id="provinsi">
   			<?php
   			echo "<option value='0' selected='selected'>-- Pilih Provinsi --</option>";
@@ -94,20 +94,20 @@ else if ($_GET['act'] == 'tambah'){
           </select>
       </div>
 
-  	<div class="input text"><label for="kota">Kabupaten / Kota :</label>
+  	<div class="input text"><label for="kota">Kabupaten / Kota &nbsp &nbsp:</label>
       	<select name="kota" id="kota">
           	<option>Tidak Ada Data</option>
           </select>
       </div>
-  	<div class="input textarea"><label for="alamat">Alamat :</label><textarea name="alamat" required="required" style="height:50px" cols="30" rows="6" id="alamat"></textarea></div>
+  	<div class="input textarea"><label for="alamat">Alamat &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp : </label><textarea name="alamat" required="required" style="height:50px" cols="30" rows="6" id="alamat"></textarea></div>
 
-  	<div class="input text"><div class="input text"><label for="kode_pos">Kode Pos :</label><input name="kode_pos" required="required" maxlength="5" type="text" id="kode_pos" onKeyPress="return goodchars(event,'1234567890',this)"/></div></div>
+  	<div class="input text"><div class="input text"><label for="kode_pos">Kode Pos &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp : </label><input name="kode_pos" required="required" maxlength="5" type="text" id="kode_pos" onKeyPress="return goodchars(event,'1234567890',this)"/></div></div>
 
-  	<div class="input text"><div class="input text"><label for="telepon">Nomor Telepon :</label><input name="telepon" required="required" maxlength="14" type="text" id="telepon" onKeyPress="return goodchars(event,'1234567890+',this)"/></div></div>
+  	<div class="input text"><div class="input text"><label for="telepon">Nomor Telepon &nbsp &nbsp &nbsp &nbsp: </label><input name="telepon" required="required" maxlength="14" type="text" id="telepon" onKeyPress="return goodchars(event,'1234567890+',this)"/></div></div>
 
   	<div class="clear"></div>
       <div class='div-shadow'></div>
-  	<div class="submit"><input type="submit" value="Register" name="registrasi"/></div></form>
+        <div colspan=2><input type=submit class='tombol' value=Register name="registrasi"></div></from>
   </div>
 
 

@@ -11,15 +11,15 @@ if ($module=='ongkos' AND $act=='hapus'){
 }
 
 elseif ($module=='ongkos' AND $act=='input'){  
-  mysql_query("INSERT INTO tarif(kelas,sebulan,setahun) 
-	                       VALUES('$_POST[kelas]',
+  mysql_query("INSERT INTO tarif(satuan,sebulan,setahun) 
+	                       VALUES('$_POST[satuan]',
                                 '$_POST[sebulan]',
                                 '$_POST[setahun]')");
   header('location:../../media.php?module='.$module);
 }
 
 elseif ($module=='ongkos' AND $act=='update'){
-  mysql_query("UPDATE tarif SET kelas 				= '$_POST[kelas]',
+  mysql_query("UPDATE tarif SET satuan 				= '$_POST[satuan]',
                                 sebulan    			= '$_POST[sebulan]',
 							                  setahun    				= '$_POST[setahun]'
                           WHERE id_tarif = '$_POST[id]'");

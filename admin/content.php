@@ -35,8 +35,8 @@ switch ($_GET[module]) {
 		if ($_SESSION['leveluser']=='0') include "modul/mod_smsoutbox/smsoutbox.php";
 		break;
 
-	case 'smsInbox':
-		if ($_SESSION['leveluser']=='0') include "modul/mod_smsInbox/smsInbox.php";
+	case 'smsinbox':
+		if ($_SESSION['leveluser']=='0') include "modul/mod_smsInbox/smsinbox.php";
 		break;
 
 	case 'pemesanan':

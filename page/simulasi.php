@@ -1,4 +1,4 @@
-<h1>Simulasi Pemesanan</h1>
+<h1>Simulasi </h1>
 <hr color='#000000' size='1'>
 
 	<div class="register form">
@@ -44,3 +44,37 @@
 
     }
     </script>
+
+<br \> <br \> <br \> <br \> 
+<h2>SMS Gateway</h2>
+<hr color='#000000' size='0'>
+
+	<div class="register form">
+
+		<form class="standard" action="" method="POST">
+		<div class="clearfix">
+		<p> <b> o Registrasi Member. </b> </p>
+		<p><spasi> #REGISTRASI,email,password,ulangi password,nama,tanggal lahir,provinsi,Kabupaten/kota, alamat, kode pos, nomor telepon<br \>
+			Contoh : #Registrasi abcd@gmail.com,emailku,emailku,budi,11051994, Prov.Riau, Kab.Siak, Perawang, 28772, 085265904015 <br \>
+			Kirim ke : 08xxxxxxxxxx </spasi></p><br \>
+
+		<p> <b> o Informasi. </b> </p>
+		<p> #INFO_AGEN<br \>
+		<p> #INFO_REKENING PEMBAYARAN<br \>	
+		<p> #INFO_LOGIN_EMAIL<br \>
+		<p> #INFO_FAQ<br \>
+		<p> #INFO_TARIF & JADWAL<br \>
+		<p> #INFO_AGEN<br \>
+		<p> #INFO_PROMO<br \>
+		<p> #INFO_ORDER_INVOICE<br \>						
+			Kirim ke : 08xxxxxxxxxx </spasi></p><br \>
+
+		<p> <b> o Jawab Polling. </b> </p>
+		<p> #JAWABPOLLING_Jawaban<br \>
+			Contoh : #JAWABPOLLING_8<br \>
+			Kirim ke : 08xxxxxxxxxx </spasi></p><br \>
+
+		<p> <b> o Saran Kritik. </b> </p>
+		<p> #SARAN / KRITIK_Pesan <br \>
+			Contoh : #SARAN / KRITIK_Maksimalkan Lagi.<br \>
+			Kirim ke : 08xxxxxxxxxx </spasi></p><br \>			

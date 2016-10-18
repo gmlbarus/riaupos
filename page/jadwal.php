@@ -44,7 +44,7 @@ echo '	</tbody></table>';
 <div class='div-shadow'></div>
 
 <h1>Tarif Berlangganan</h1>
-<hr color='#c5a430' size='1'>
+<hr color='#000000' size='1'>
 <?php
 $query 	= mysql_query("SELECT * FROM tarif");
 $jml	= mysql_num_rows($query);
@@ -53,7 +53,7 @@ echo '<table id="tabel-tarif" class="display" cellspacing="0" width="100%">
 		<thead>
 			<tr>
 				<th>No.</th>
-				<th>Class</th>
+				<th>satuan</th>
 				<th>Sebulan</th>
 				<th>Setahun</th>
 			</tr>
@@ -63,7 +63,7 @@ echo '<table id="tabel-tarif" class="display" cellspacing="0" width="100%">
 		while($r=mysql_fetch_array($query)){
 			echo "<tr>
 					<td>$no</td>
-					<td>".strtoupper($r[kelas])."</td>
+					<td>Rp. ".format_rupiah($r[satuan])."</td>
 					<td>Rp. ".format_rupiah($r[sebulan])."</td>
 					<td>Rp. ".format_rupiah($r[setahun])."</td>
 				</tr>";
