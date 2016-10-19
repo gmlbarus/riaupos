@@ -1,5 +1,5 @@
 <?php
-$aksi = "modul/mod_login/aksi.php";
+$aksi = "modul/mod_polling2/aksi.php";
 switch($_GET[act]){
   // Tampil Modul
   default:
@@ -36,19 +36,31 @@ echo "<div id=paging>Hal: $linkHalaman</div><br>";
     break;
 
   case "tambah":
-    echo "<h2>Tambah Data</h2>
-          <form method=POST action='$aksi?module=login&act=input'>
-          <table>
-          <tr><td>Email</td> 	<td> : <input type=text name='username' size='50'></td></tr>
-          <tr><td>Password</td>       	<td> : <textarea name='pass' style='width: 375px; height: 50px;'></textarea></td></tr>
-          <tr><td>Group</td>      <td> : <input type=radio name='grup' value='0'>0
-                                         <input type=radio name='grup' value='1'>1
-                                         <input type=radio name='grup' value='2'>2</td></tr>
-           <tr><td>Status</td>   <td> : <input type=text name='status' size='50'></td></tr>
 
-          <tr><td colspan=2><input type=submit class='tombol' value=Simpan>
-                            <input type=button class='tombol' value=Batal onclick=self.history.back()></td></tr>
-          </table></form>";
+  /**
+   * @author ebenhezer
+   * @copyright 2016
+   */
+  $query = mysql_query("select * from polling;");
+  echo "<form action='{$aksi}' method='post'>";
+  echo "<div style='width:20%; float:left'><b>No Handphone</b></div>";
+  echo "<div style='width:70%'><input type='text' name='noHp' placeholder='ex. 62853641645'/></div>";
+  $j=1;
+  while ($data=mysql_fetch_array($query)) {
+      echo "<div style='margin-bototm:30px'>";
+      echo "<input type='hidden' name='id$j' value='".$data['id_polling']."'/>";
+      echo "<b>".$data['pertanyaan']."</b><br />";
+      echo "<div style='margin-top:20px'; margin-right:40px>";
+      for ($i=1;$i<=10;$i++) {
+          echo "<input style='margin-left: 13px; margin-right: 5px' type='radio' name='jawaban$j' value='".$data['jawaban'.$i]."' />".$data['jawaban'.$i];
+      }
+     $j++;
+  }
+  echo "</div><br>";
+  echo "<input type='submit' class='btn btn-primary' value='Vote!' name='pollingSms'/><br>";
+  echo "<br \>";
+  echo "</form>";
+
      break;
 
 }

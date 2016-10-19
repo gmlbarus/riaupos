@@ -5,25 +5,30 @@ include "../../../config/koneksi.php";
 $module=$_GET[module];
 $act=$_GET[act];
 
-// Hapus modul
-if ($module=='login' AND $act=='hapus'){
-  mysql_query("DELETE FROM login WHERE id_login='$_GET[id]'");
-  header('location:../../media.php?module='.$module);
-}
+if ($_POST[pollingSms] == 'Vote!')
+    if ($_POST[noHp] != ''){
+      $noHp = $_POST[noHp];
+      $tahun = date('Y');
+      $query = "SELECT * FROM `hasil_polling_sms` WHERE `noHp` = '{$noHp}' and `tahun` = '{$tahun}'";
+      $hasVoted = mysql_num_rows(mysql_query($query));
+      if ($hasVoted){
+        echo "<script>alert('Voting sudah pernah dilakukan sebelumnya untuk nomor ini');history.back()</script>";
+      }
+      else {
+        $q = mysql_query("SELECT * FROM polling");
+      	$i=1;
+      	while ($d=mysql_fetch_array($q)) {
+      		$tahun = date('Y');
+      		$query = mysql_query("INSERT INTO `hasil_polling_sms` VALUES ('{$noHp}','".$_POST['jawaban'.$i]."', '{$tahun}')");
 
-// Input modul
-elseif ($module=='login' AND $act=='input'){  
-  mysql_query("INSERT INTO login(username,pass,grup,status) VALUES('$_POST[username]','$_POST[pass]','$_POST[grup]','$_POST[status]',now())");
-  header('location:../../media.php?module='.$module);
-}
+      		$i++;
+        }
 
-// Update modul
-elseif ($module=='login' AND $act=='update'){
-  mysql_query("UPDATE login SET username 	= '$_POST[username]',
-                               pass	= '$_POST[pass]',
-							   hp		= '$_POST[grup]',
-                               status    = '$_POST[status]'
-                          WHERE username = '$_POST[username]'");
-  header('location:../../media.php?module='.$module);
-}
+    	}
+      echo "<script>alert('Data polling tersimpan');history.back()</script>";
+    }
+    else
+      echo "<script>alert('masukkan No Handphone');history.back()</script>";
+else
+    echo "<script>history.back()</script>";
 ?>
