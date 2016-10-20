@@ -5,7 +5,7 @@
 <?php
 	$host = 'localhost';
 	$user = 'root';
-	$pass = '';
+	$pass = 'root';
 	$db = 'koran';
 
 	$conn = mysql_connect($host, $user, $pass);
@@ -15,16 +15,19 @@
 	$year = isset($_GET['year']);
 	$year = ! empty($_GET['year']) ? $_GET['year'] : date('Y');
 
-		// set sereis
+		// set series
 	$series = array();
 
 	/* Get all poling */
-	$sql = "SELECT id_polling FROM hasil_polling WHERE tahun = '{$year}'";
-	$all_result = mysql_num_rows(mysql_query($sql));
+	$sql1 = "SELECT id_polling FROM hasil_polling WHERE tahun = '{$year}'";
+	$sql = "SELECT `noHp` FROM hasil_polling_sms WHERE tahun = '{$year}'";
+	$all_result = mysql_num_rows(mysql_query($sql1)) + mysql_num_rows( mysql_query( $sql));
+
 
 	/* Get detractor data */
-	$sql = "SELECT id_polling FROM hasil_polling WHERE jawaban BETWEEN 0 AND 6 AND tahun = '{$year}'";
-	$det = mysql_num_rows(mysql_query($sql));
+	$sql1 = "SELECT id_polling FROM hasil_polling WHERE jawaban BETWEEN 0 AND 6 AND tahun = '{$year}'";
+	$sql2 = "SELECT `noHp` FROM hasil_polling_sms WHERE jawaban BETWEEN 0 AND 6 AND tahun = '{$year}'";
+	$det = mysql_num_rows(mysql_query($sql1)) + mysql_num_rows( mysql_query( $sql2));
 
 	$detractor = array(
 		'name' => 'Detractor',
@@ -32,8 +35,9 @@
 	);
 
 	/* Get passivers data */
-	$sql = "SELECT id_polling FROM hasil_polling WHERE jawaban BETWEEN 7 AND 8 AND tahun = '{$year}'";
-	$pas = mysql_num_rows(mysql_query($sql));
+	$sql1 = "SELECT id_polling FROM hasil_polling WHERE jawaban BETWEEN 7 AND 8 AND tahun = '{$year}'";
+	$sql2 = "SELECT `noHp` FROM hasil_polling_sms WHERE jawaban BETWEEN 7 AND 8 AND tahun = '{$year}'";
+	$pas = mysql_num_rows(mysql_query($sql1)) + mysql_num_rows( mysql_query( $sql2));
 
 	$passivers = array(
 		'name' => 'Passivers',
@@ -41,8 +45,9 @@
 	);
 
 	/* Get Promote data */
-	$sql = "SELECT id_polling FROM hasil_polling WHERE jawaban BETWEEN 9 AND 10 AND tahun = '{$year}'";
-	$pro = mysql_num_rows(mysql_query($sql));
+	$sql1 = "SELECT `id_polling` FROM `hasil_polling` WHERE `jawaban` BETWEEN 9 AND 10 AND `tahun` = '{$year}'";
+	$sql2 = "SELECT `noHp` FROM `hasil_polling_sms` WHERE `jawaban` BETWEEN 9 AND 10 AND `tahun` = '{$year}'";
+	$pro = mysql_num_rows(mysql_query($sql1)) + mysql_num_rows( mysql_query( $sql2));
 
 	$promote = array(
 		'name' => 'Promote',
