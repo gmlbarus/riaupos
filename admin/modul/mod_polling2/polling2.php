@@ -6,25 +6,21 @@ switch($_GET[act]){
     echo "<h2>Data Polling</h2>
           <input type=button class='tombol' value='Tambah Data' onclick=\"window.location.href='?module=polling2&act=tambah';\">
           <table>
-          <tr><th>No</th><th>Id Polling</th><th>Jawaban</th><th>IP 1</th><th>IP 2</th><th>No Hp</th><th>Tahun</th>";
+          <tr><th>No</th><th>Key</th><th>Jawaban</th><th>Tahun</th>";
 
 $p      = new Paging;
 $batas  = 10;
 $posisi = $p->cariPosisi($batas);
 
 
-    $tampil	= mysql_query("SELECT * FROM hasil_polling,hasil_polling_sms LIMIT $posisi, $batas");
+    $tampil	= mysql_query("SELECT `ip_1`, `jawaban`, `tahun` FROM `hasil_polling` UNION SELECT * from `hasil_polling_sms` LIMIT $posisi, $batas");
 	  $no		= 1;
     while ($r=mysql_fetch_array($tampil)){
 		echo "<tr>
 			<td>$no</td>
-      <td>$r[id_polling]</td>
+      <td>$r[ip_1]</td>
 			<td>$r[jawaban]</td>
-			<td>$r[ip_1]</a></td>
-			<td>$r[ip_2]</a></td>
-      <td>$r[noHp]
-			<td>$r[tahun]</td>
-			</td>
+			<td>$r[tahun]</a></td>
 			</tr>";
 		$no++;
     }
