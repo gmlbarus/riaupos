@@ -13,7 +13,7 @@ $batas  = 10;
 $posisi = $p->cariPosisi($batas);
 
 
-    $tampil	= mysql_query("SELECT `ip_1`, `jawaban`, `tahun` FROM `hasil_polling` UNION SELECT * from `hasil_polling_sms` LIMIT $posisi, $batas");
+    $tampil	= mysql_query("SELECT `id_polling`,`ip_1`, `jawaban`, `tahun` FROM `hasil_polling` UNION SELECT * from `hasil_polling_sms` LIMIT $posisi, $batas");
 	  $no		= 1;
     while ($r=mysql_fetch_array($tampil)){
 		echo "<tr>
