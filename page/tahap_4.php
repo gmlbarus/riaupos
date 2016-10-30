@@ -14,7 +14,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 							'{$_SESSION['profil'][1]}',
 							'{$_SESSION['profil'][4]}',
 							'{$_SESSION['profil'][2]}',
-							'{$_SESSION['profil'][2]}',
+							'{$_SESSION['profil'][3]}',
 							'{$_SESSION['profil'][7]}',
 							'{$_SESSION['profil'][6]}',
 							'{$order[koran_1]}',
@@ -24,11 +24,10 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 							'{$order[sebanyak]}',
 							'{$order[jatuh_tempo]}',
 							'{$order[hari]}',
-							FALSE
+							FALSE,
+							'{$_SESSION['basyenkid']}'
 						)";
 
-				// var_dump($_SESSION);
-				// echo $query;
 				mysql_query($query);
 
 				echo "<script>alert('Data anda telah kami terima. Terima kasih')</script>";
