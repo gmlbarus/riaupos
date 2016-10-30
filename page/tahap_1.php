@@ -13,6 +13,21 @@ if($_POST[cari]!=""){
 ?>
 
 <script language="javascript">
+function validasi(form){
+	alert(form.koran_1.value);
+  if ( ! form.koran_1.value == 0){
+    alert("Provinsi belum dipilih...");
+    form.koran_1.focus();
+    return (false);
+  }
+  if ( ! form.koran_2.value == 0){
+    alert("Kabupaten/Kota belum dipilih...");
+    form.koran_2.focus();
+    return (false);
+  }
+  return (false);
+}
+
 function Right(str, n){
   if (n <= 0)
     return "";
@@ -71,7 +86,7 @@ s
 
 
 <div class="register form">
-	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="return validasi(this)">
+	<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post" onSubmit="validasi(this)">
 
 	<div class="search-form-top">
 		<?php
@@ -104,7 +119,7 @@ s
 				<option <?php is_selected('koran_1', 'entertainer') ?>>Entertainer</option>
 				<option <?php is_selected('koran_1', 'lifestyle') ?>>Lifestyle</option>
 				<option <?php is_selected('koran_1', 'teknologi') ?>>Teknologi</option>
-				<option <?php is_selected('koran_1', 'pendidikan') ?>>Pendidikan</option>	
+				<option <?php is_selected('koran_1', 'pendidikan') ?>>Pendidikan</option>
 			</select>
 		</div>
 	</div>

@@ -35,7 +35,7 @@ if ($_POST['pollingSms'] == 'Vote!')
         }
 
     	}
-      echo "<script>alert('Data polling tersimpan');history.back();location.reload(true)</script>";
+      echo "<script>alert('Data polling tersimpan');location.replace(document.referrer)</script>";
     }
     else
       echo "<script>alert('masukkan No Handphone');history.back()</script>";

@@ -11,6 +11,12 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 				$query = "INSERT INTO `order` VALUES(
 							'{$order[invoice]}',
 							'{$_SESSION[basyenkuser]}',
+							'{$_SESSION['profil'][1]}',
+							'{$_SESSION['profil'][4]}',
+							'{$_SESSION['profil'][2]}',
+							'{$_SESSION['profil'][2]}',
+							'{$_SESSION['profil'][7]}',
+							'{$_SESSION['profil'][6]}',
 							'{$order[koran_1]}',
 							'{$order[koran_2]}',
 							'{$order[pembayaran]}',
@@ -21,7 +27,9 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 							FALSE
 						)";
 
-				mysql_query($query);		
+				// var_dump($_SESSION);
+				// echo $query;
+				mysql_query($query);
 
 				echo "<script>alert('Data anda telah kami terima. Terima kasih')</script>";
 				echo "<script>window.location = 'media.php?page=pemesanan&tahap=6'</script>";
