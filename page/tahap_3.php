@@ -8,6 +8,12 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		echo "<script>window.location = 'media.php?page=pemesanan&tahap=4'</script>";
 		//echo "<script>window.location = 'page/tahap_3.php'</script>";
 	}
+
+	$query = "SELECT `sebulan` FROM `tarif` LIMIT 1";
+	$result = mysql_query($query);
+
+	// retrieve harga from database or 79000 as default
+	$harga = (mysql_num_rows($res)) ? mysql_fetch_array($result)[0] : 79000;
 ?>
 <script type="text/javascript">
 	function hitung_harga(elem){
@@ -18,7 +24,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		document.getElementById('hari_form').value = hari;
 		var unik = document.getElementById('nominal_unik').innerHTML;
 		var status = document.getElementById('status_pembayaran').innerHTML;
-		var harga = 79000 * sebanyak + parseInt(unik);
+		var harga = <?php echo $harga ?> * sebanyak + parseInt(unik);
 		document.getElementById('total_harga').innerHTML = harga;
 		document.getElementById('total_harga_form').value = harga;
 
@@ -62,7 +68,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 	<!-- Harga -->
 	<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
 		<div style="width:20%; float: left">harga</div>
-		<div style="width:80%">: <b>79.000</b></div>
+		<div style="width:80%">: <b><?php echo $harga?></b></div>
 	</div>
 
 	<div class="clear"></div>
