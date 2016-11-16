@@ -13,7 +13,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 	$result = mysql_query($query);
 
 	// retrieve harga from database or 79000 as default
-	$harga = (mysql_num_rows($res)) ? mysql_fetch_array($result)[0] : 79000;
+	$harga = (mysql_num_rows($res)) ? 79000 : mysql_fetch_array($result)[0];
 ?>
 <script type="text/javascript">
 	function hitung_harga(elem){
