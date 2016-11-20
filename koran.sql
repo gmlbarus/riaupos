@@ -364,7 +364,7 @@ CREATE TABLE `order` (
   `jatuh_tempo` date DEFAULT NULL,
   `masa_aktif` int(11) DEFAULT NULL,
   `konfirmasi` enum('lunas','pending','belum lunas') DEFAULT NULL,
-  `id_profil` int(11) NOT NULL,
+  `id_profil` int(11) DEFAULT NULL,
   PRIMARY KEY (`invoice`),
   KEY `fk_orderProv` (`id_provinsi`),
   KEY `fk_orderKota` (`id_kota`),
@@ -381,7 +381,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('a9f1be02435a','gml@gml','2000-10-30','dimana','11','1','gml@gml','0928342','bisnis','health','internet_banking',158038,2,'2016-11-06',60,'',21);
+INSERT INTO `order` VALUES ('213asd','','0000-00-00','asd','11','1','asd@qwe','9987','bisnis','health','internet_banking',12312,2,'0000-00-00',60,'',NULL),('cbca35f34586','telat@email','0000-00-00','','11','1','telat@email','1','bisnis','health','internet_banking',320020,4,'2016-11-26',120,'',NULL);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -584,7 +584,7 @@ CREATE TABLE `tarif` (
 
 LOCK TABLES `tarif` WRITE;
 /*!40000 ALTER TABLE `tarif` DISABLE KEYS */;
-INSERT INTO `tarif` VALUES (1,'Reguler',3000,79000,800000);
+INSERT INTO `tarif` VALUES (1,'Reguler',3000,80000,800000);
 /*!40000 ALTER TABLE `tarif` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -624,4 +624,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-30 23:35:30
+-- Dump completed on 2016-11-20 13:36:21
