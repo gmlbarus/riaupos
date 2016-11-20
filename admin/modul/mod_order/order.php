@@ -38,7 +38,8 @@ else{
     $no = 1;
     while($r=mysql_fetch_array($query)){
       $img  = "<a href='media.php?module=pemesanan&page=koran&mode=detail&id=$r[invoice]' title='Lihat detail'><img src='../images/detail.png'></a>
-      <a href='media.php?module=pemesanan&page=koran&mode=validate&id=$r[invoice]'><b>| validasi </b></a>";
+      <a href='media.php?module=pemesanan&page=koran&mode=validate&id=$r[invoice]'><b> | validasi </b></a>
+      <a id='{$r['invoice']}'; href='media.php?module=pemesanan&page=koran&mode=delete&id=$r[invoice]'><b> | hapus </b></a>";
       if($r[status]=='Belum Lunas') {
         $status = 'Pending';
       }
@@ -70,6 +71,14 @@ else{
     $query = "UPDATE `order` SET `konfirmasi` = 'lunas' WHERE `invoice` = '{$invoice}'";
     mysql_query($query);
     echo "<script>alert('pembayaran invoice #{$_GET[id]} telah divalidasi');</script>";
+  }
+  if ($_GET['mode'] == 'delete'){
+    $invoice = $_GET['id'];
+    $query = "DELETE FROM `order` WHERE `invoice` = '{$invoice}'";
+
+    mysql_query($query);
+    echo "<script>alert('invoice #{$_GET[id]} telah dihapus');</script>";
+    echo "<script>window.location.href = document.referrer;</script>";
   }
   if($_GET[mode]=='detail'){
     function index($teks){
@@ -133,6 +142,8 @@ else{
     elseif($o[status]=='Lunas'){
       $tombol = "";
     }
+    echo "";
+
 
     echo "
     <hr color='#000000' size='1'>
