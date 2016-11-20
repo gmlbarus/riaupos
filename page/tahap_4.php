@@ -6,27 +6,52 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 
 		if (isset($_SESSION[tahap]))
 			$_SESSION[tahap] = $_SESSION[tahap] > 6 ? $_SESSION[tahap] : 6;
-				// TODO: insert into tbl_order;
-				$order = $_SESSION['order'];
-				$query = "INSERT INTO `order` VALUES(
-							'{$order[invoice]}',
-							'{$_SESSION[basyenkuser]}',
-							'{$_SESSION['profil'][1]}',
-							'{$_SESSION['profil'][4]}',
-							'{$_SESSION['profil'][2]}',
-							'{$_SESSION['profil'][3]}',
-							'{$_SESSION['profil'][7]}',
-							'{$_SESSION['profil'][6]}',
-							'{$order[koran_1]}',
-							'{$order[koran_2]}',
-							'{$order[pembayaran]}',
-							'{$order[harga]}',
-							'{$order[sebanyak]}',
-							'{$order[jatuh_tempo]}',
-							'{$order[hari]}',
-							FALSE,
-							'{$_SESSION['basyenkid']}'
-						)";
+
+		$order = $_SESSION['order'];
+		if (isset($_SESSION['basyenkuser']) AND isset( $_SESSION['profil'])){
+			$query = "INSERT INTO `order` VALUES(
+						'{$order[invoice]}',
+						'{$_SESSION[basyenkuser]}',
+						'{$_SESSION['profil']['nama']}',
+						'{$_SESSION['profil']['alamat']}',
+						'{$_SESSION['profil']['provinsi']}',
+						'{$_SESSION['profil']['kota']}',
+						'{$_SESSION['profil']['email']}',
+						'{$_SESSION['profil']['kota']}',
+						'{$order[koran_1]}',
+						'{$order[koran_2]}',
+						'{$order[pembayaran]}',
+						'{$order[harga]}',
+						'{$order[sebanyak]}',
+						'{$order[jatuh_tempo]}',
+						'{$order[hari]}',
+						FALSE,
+						'{$_SESSION['basyenkid']}'
+					)";
+		}
+		else{
+			// TODO: insert into tbl_order;
+			$query = "INSERT INTO `order` VALUES(
+						'{$order[invoice]}',
+						'{$_SESSION['profil']['email']}',
+						'{$_SESSION['profil']['nama']}',
+						'{$_SESSION['profil']['alamat']}',
+						'{$_SESSION['profil']['provinsi']}',
+						'{$_SESSION['profil']['kota']}',
+						'{$_SESSION['profil']['email']}',
+						'{$_SESSION['profil']['kota']}',
+						'{$order[koran_1]}',
+						'{$order[koran_2]}',
+						'{$order[pembayaran]}',
+						'{$order[harga]}',
+						'{$order[sebanyak]}',
+						'{$order[jatuh_tempo]}',
+						'{$order[hari]}',
+						FALSE,
+						NULL
+					)";
+		}
+
 
 				mysql_query($query);
 
@@ -48,7 +73,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 	<div class="register form">
 		<form name="form" action="<?php $_SERVER[PHP_SELF]; ?>" class="standard" method="post">
 		<div class="clearfix">
-		<h3 class="orangetext" style="color: #000000">Nama Pelanggan &nbsp&nbsp&nbsp&nbsp: <?php echo strtoupper($_SESSION[profil][0]); ?><br>
+		<h3 class="orangetext" style="color: #000000">Nama Pelanggan &nbsp&nbsp&nbsp&nbsp: <?php echo strtoupper($_SESSION[profil][nama]); ?><br>
 			<h3>Invoice # <?php echo $_SESSION[order]['invoice'] ?></h3>
 			<input type="hidden" name="invoice" value="<?php echo $_SESSION[order]['invoice']?>">
 			<?php echo $_SESSION['namauser']; ?>
