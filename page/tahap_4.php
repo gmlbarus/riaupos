@@ -20,7 +20,6 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 						'{$_SESSION['profil']['kota']}',
 						'{$order[koran_1]}',
 						'{$order[koran_2]}',
-						'{$order[pembayaran]}',
 						'{$order[harga]}',
 						'{$order[sebanyak]}',
 						'{$order[jatuh_tempo]}',
@@ -42,7 +41,6 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 						'{$_SESSION['profil']['kota']}',
 						'{$order[koran_1]}',
 						'{$order[koran_2]}',
-						'{$order[pembayaran]}',
 						'{$order[harga]}',
 						'{$order[sebanyak]}',
 						'{$order[jatuh_tempo]}',
@@ -106,15 +104,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		</div>
 
 		<div class="clear"></div>
-
-		<!-- Via Pembayaran -->
-		<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
-			<div style="width:20%; float: left">Pembayaran Via</div>
-			<div style="width:80%">: <b><?php echo $order['pembayaran'] ?></b></div>
-		</div>
-
-		<div class="clear"></div>
-
+		
 		<!-- Harga -->
 		<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
 			<div style="width:20%; float: left">Harga</div>

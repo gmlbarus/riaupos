@@ -48,23 +48,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 	<hr color='#000000' size='1'>
 
 	<div class="clear"></div>
-
-	<!-- Pembayaran VIA -->
-	<div class="clearfix">
-		<div class="input text"><label for="pembayaran">Pembayaran via</label>
-			<select class="" name="pembayaran" id="pembayaran">
-				<option>-Metode Pembayaran-</option>
-				<option <?php is_selected('pembayaran', 'internet_banking') ?>>Internet Banking</option>
-				<option <?php is_selected('pembayaran', 'mobile_banking') ?>>Mobile Banking</option>
-				<option <?php is_selected('pembayaran', 'setoran_tunai') ?>>Setoran Tunai</option>
-				<option <?php is_selected('pembayaran', 'atm') ?>>ATM</option>
-				<option <?php is_selected('pembayaran', 'kartu_kredit') ?>>Kartu Kredit</option>
-			</select>
-		</div>
-	</div>
-
-	<div class="clear"></div>
-
+	
 	<!-- Harga -->
 	<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
 		<div style="width:20%; float: left">harga</div>

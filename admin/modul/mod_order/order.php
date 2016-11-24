@@ -179,11 +179,6 @@ else{
         <td><b>".strtoupper($o[koran_2])."</b></td>
       </tr>
       <tr>
-        <td width=150>Pembayaran Via</td>
-        <td width=10>:</td>
-        <td><b>".strtoupper($o[pembayaran_via])."</b></td>
-      </tr>
-      <tr>
         <td width=150>Sebanyak</td>
         <td width=10>:</td>
         <td><b>$o[sebanyak] x</b></td>

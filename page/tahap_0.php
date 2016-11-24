@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <HTML lang='en'>
 <head>
-<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
-<meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'/>
-<meta content='blogger' name='generator'/>
-<meta content='Chaidir' name='author'/>
-<meta content='Halaman Demo Belajar Membuat Gambar Slide Bertukar saat di-klik. Kunjungi chaidir.web.id untuk penjelasan selengkapnya. Materi coding, CSS, Template.' name='description'/>
-<meta content='CSS, sibling, selector, adjancent sibling, general sibling, child, HTML5, template, slide' name='keywords'/>
-<link href='../css/images/Founder-Chaidir-Web.jpg' rel='img_src'/>
-<link href='https://chaidir.web.id/wp-content/themes/chaidirweb/favicon.ico' rel='icon' type='image/x-icon'/>
-
 <style type='text/css'>
 html {height: 100vh;background:#eee;}
 body {color: #000;font-size: 11px;margin:0;word-break:break-word;padding:0;text-align:left;vertical-align:baseline;}

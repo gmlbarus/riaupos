@@ -113,13 +113,13 @@ s
 		<div class="input text"><label for="nama">Koran Tambahan Pertama</label>
 			<select class="" name="koran_1" id="koran_1">
 				<option value="">-Pilihan 1-</option>
-				<option <?php is_selected('koran_1', 'bisnis') ?>>Bisnis</option>
+				<option <?php is_selected('koran_1', 'business') ?>>Business</option>
 				<option <?php is_selected('koran_1', 'health') ?>>Health</option>
 				<option <?php is_selected('koran_1', 'sport') ?>>Sport</option>
-				<option <?php is_selected('koran_1', 'entertainer') ?>>Entertainer</option>
+				<option <?php is_selected('koran_1', 'entertainment') ?>>Entertainment</option>
 				<option <?php is_selected('koran_1', 'lifestyle') ?>>Lifestyle</option>
-				<option <?php is_selected('koran_1', 'teknologi') ?>>Teknologi</option>
-				<option <?php is_selected('koran_1', 'pendidikan') ?>>Pendidikan</option>
+				<option <?php is_selected('koran_1', 'technology') ?>>Technology</option>
+				<option <?php is_selected('koran_1', 'education') ?>>Education</option>
 			</select>
 		</div>
 	</div>
@@ -131,13 +131,13 @@ s
 		<div class="input text"><label for="nama">Koran Tambahan Kedua</label>
 			<select class="" name="koran_2" id="koran_2">
 				<option value="">-Pilihan 2-</option>
-				<option <?php is_selected('koran_2', 'bisnis') ?>>Bisnis</option>
+				<option <?php is_selected('koran_2', 'business') ?>>Business</option>
 				<option <?php is_selected('koran_2', 'health') ?>>Health</option>
 				<option <?php is_selected('koran_2', 'sport') ?>>Sport</option>
-				<option <?php is_selected('koran_2', 'entertainer') ?>>Entertainer</option>
-				<option <?php is_selected('koran_2', 'lifestyle') ?>>Lifestyle</option>
-				<option <?php is_selected('koran_2', 'teknologi') ?>>Teknologi</option>
-				<option <?php is_selected('koran_2', 'pendidikan') ?>>Pendidikan</option>
+				<option <?php is_selected('koran_2', 'entertainment') ?>>Entertainment</option>
+				<option <?php is_selected('koran_2', 'lifestyle') ?>>Lifestyle </option>
+				<option <?php is_selected('koran_2', 'technology') ?>>Technology</option>
+				<option <?php is_selected('koran_2', 'education') ?>>Education</option>
 			</select>
 		</div>
 	</div>
