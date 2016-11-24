@@ -13,14 +13,14 @@ $batas  = 10;
 $posisi = $p->cariPosisi($batas);
 
 
-    $tampil	= mysql_query("SELECT `id_polling`,`ip_1`, `jawaban`, `tahun` FROM `hasil_polling` UNION SELECT * from `hasil_polling_sms` LIMIT $posisi, $batas");
+    $tampil	= mysql_query("SELECT `username` as `key`, `jawaban` as `jwb`, `tahun` as `thn`, `id_polling` as `id` FROM `hasil_polling` UNION ALL SELECT `noHp` as `key`, `jawaban` as `jwb`, `tahun` as `thn`, `id_polling` as `id` from `hasil_polling_sms` LIMIT $posisi, $batas");
 	  $no		= 1;
     while ($r=mysql_fetch_array($tampil)){
 		echo "<tr>
 			<td>$no</td>
-      <td>$r[ip_1]</td>
-			<td>$r[jawaban]</td>
-			<td>$r[tahun]</a></td>
+      <td>$r[key]</td>
+			<td>$r[jwb]</td>
+			<td>$r[thn]</a></td>
 			</tr>";
 		$no++;
     }
