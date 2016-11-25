@@ -12,6 +12,7 @@
   include "config/fungsi_seo.php";
   include "config/fungsi_seat.php";
   include "config/fungsi_fiktif.php";
+  include "config/hitung_saldo.php";
 
 if($_POST[login]!=""){
 	function antiinjection($data){

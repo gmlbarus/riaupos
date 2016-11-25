@@ -5,6 +5,7 @@ include "../config/fungsi_indotgl.php";
 include "../config/fungsi_combobox.php";
 include "../config/class_paging.php";
 include "../config/fungsi_rupiah.php";
+include "../config/hitung_saldo.php";
 
 switch ($_GET[module]) {
 	case 'laporan-upgrade-class':
