@@ -12,12 +12,12 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 			$query = "INSERT INTO `order` VALUES(
 						'{$order[invoice]}',
 						'{$_SESSION[basyenkuser]}',
-						'{$_SESSION['profil']['nama']}',
+						'{$_SESSION['profil']['tgl_lahir']}',
 						'{$_SESSION['profil']['alamat']}',
 						'{$_SESSION['profil']['provinsi']}',
 						'{$_SESSION['profil']['kota']}',
 						'{$_SESSION['profil']['email']}',
-						'{$_SESSION['profil']['kota']}',
+						'{$_SESSION['profil']['telepon']}',
 						'{$order[koran_1]}',
 						'{$order[koran_2]}',
 						'{$order[harga]}',
@@ -32,13 +32,11 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 			// TODO: insert into tbl_order;
 			$query = "INSERT INTO `order` VALUES(
 						'{$order[invoice]}',
-						'{$_SESSION['profil']['email']}',
-						'{$_SESSION['profil']['nama']}',
 						'{$_SESSION['profil']['alamat']}',
 						'{$_SESSION['profil']['provinsi']}',
 						'{$_SESSION['profil']['kota']}',
 						'{$_SESSION['profil']['email']}',
-						'{$_SESSION['profil']['kota']}',
+						'{$_SESSION['profil']['telepon']}',
 						'{$order[koran_1]}',
 						'{$order[koran_2]}',
 						'{$order[harga]}',
@@ -104,7 +102,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		</div>
 
 		<div class="clear"></div>
-		
+
 		<!-- Harga -->
 		<div class="clearfix" style="margin-top: 10px;margin-bottom:10px">
 			<div style="width:20%; float: left">Harga</div>

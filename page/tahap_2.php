@@ -5,6 +5,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 
 		$_SESSION['profil'] = array(
 			"nama"		 	=> $_POST['nama'],
+			"tgl_lahir" => "{$_POST['thn_lahir']}-{$_POST['bln_lahir']}-{$_POST['tgl_lahir']}",
 			"provinsi" 	=> $_POST['provinsi'],
 			"kota" 			=> $_POST['kota'],
 			"alamat" 		=> $_POST['alamat'],
@@ -130,9 +131,7 @@ if($_SESSION[tahap]>=$_GET[tahap]){
 		</div>
 		<div class="input textarea">
 			<label for="alamat">Alamat :</label>
-			<textarea name="alamat" required="required" style="height:50px" cols="30" rows="6" id="alamat">
-				<?php echo $r[alamat]?>
-			</textarea>
+			<textarea name="alamat" required="required" style="height:50px" cols="30" rows="6" id="alamat"><?php echo $r[alamat]?></textarea>
 		</div>
 
 		<div class="input text"><div class="input text"><label for="kode_pos">Kode Pos :</label><input name="kode_pos" required="required" maxlength="5" type="text" id="kode_pos" onKeyPress="return goodchars(event,'1234567890',this)" value="<?php echo $r[kode_pos]?>"/></div></div>
