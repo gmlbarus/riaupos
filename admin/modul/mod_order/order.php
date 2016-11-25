@@ -70,6 +70,18 @@ else{
     $invoice = $_GET['id'];
     $query = "UPDATE `order` SET `konfirmasi` = 'lunas' WHERE `invoice` = '{$invoice}'";
     mysql_query($query);
+
+
+    $query = "SELECT `username`, `harga` FROM `order` WHERE `invoice` = '{$invoice}' LIMIT 1";
+    $res = mysql_query($query);
+    $r = mysql_fetch_array($res);
+    $username = $r['username'];
+    $saldo = $r['harga'];
+    $tgl = date('Y-m-d');
+
+    $query = "INSERT INTO `saldo` VALUES ('', '{$invoice}', '{$username}', '{$saldo}', '{$tgl}')";
+    mysql_query($query);
+
     echo "<script>alert('pembayaran invoice #{$_GET[id]} telah divalidasi');</script>";
   }
   if ($_GET['mode'] == 'delete'){
@@ -177,6 +189,11 @@ else{
         <td width=150>Koran Tambahan 2</td>
         <td width=10>:</td>
         <td><b>".strtoupper($o[koran_2])."</b></td>
+      </tr>
+      <tr>
+        <td width=150>Pembayaran Via</td>
+        <td width=10>:</td>
+        <td><b>".strtoupper($o[pembayaran_via])."</b></td>
       </tr>
       <tr>
         <td width=150>Sebanyak</td>

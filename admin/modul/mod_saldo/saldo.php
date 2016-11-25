@@ -10,6 +10,22 @@ $aksi="modul/mod_saldo/aksi.php";
 switch($_GET[act]){
   // Tampil Bank
   default:
+    /* evaluate saldo */
+    $query = "SELECT `a`.`invoice`, `saldo`, `tanggal_transfer`, `harga` FROM `saldo` `a` LEFT JOIN `order` `b` ON `a`.`invoice` = `b`.`invoice`";
+    $result = mysql_query($query);
+
+    while ($r = mysql_fetch_array($result)){
+      $now = date('Y-m-d');
+      $dateDiff = date_diff(date_create($now), date_create($r['tanggal_transfer']), TRUE);
+
+      $harga_perHari = $r['harga'] / 30;
+      $saldo = round ($r['saldo'] - $dateDiff->days * $harga_perHari);
+
+      $query = "UPDATE `saldo` SET `saldo` = '{$saldo}' WHERE `invoice` = '{$r['invoice']}'";
+      mysql_query($query);
+    }
+
+
     echo "<h2>Data Saldo</h2>
           <input type=button class=tombol value='Tambah Data' onclick=location.href='?module=saldo&act=tambah'>
           <table width=650px>
@@ -18,21 +34,25 @@ switch($_GET[act]){
     $no=1;
     while ($r=mysql_fetch_array($tampil)){
       $saldo = format_rupiah($r[saldo]);
+
+      $date = date('Y-m-d');
+      $dateDiff = date_diff(date_create($date), date_create($r['tanggal_transfer']), TRUE);
+
 		echo "<tr><td align=left>$no</td>
               <td>$r[username]</td>
 			        <td>$r[invoice]</td>
               <td>Rp.$r[saldo]</td>
               <td>$r[tanggal_transfer]</td>
               <td align=left>
-					<a href=?module=saldo&act=edit&id=$r[id_saldo]><b>Edit</b></a> | 
+					<a href=?module=saldo&act=edit&id=$r[id_saldo]><b>Edit</b></a> |
 					<a href=$aksi?module=saldo&act=hapus&id=$r[id_saldo]><b>Hapus</b></a>
 		      </tr>";
     $no++;
     }
-	
+
     echo "</table>";
     break;
-  
+
   case "tambah":
     echo "<h2>Tambah Data</h2>
           <form method=POST action='$aksi?module=saldo&act=input' enctype='multipart/form-data'>
@@ -40,12 +60,12 @@ switch($_GET[act]){
           <tr><td>User Name</td>	<td>  : <input type=text name='username' size=50></td></tr>
           <tr><td>Invoice</td>  <td>  : <input type=text name='invoice' size='50'></td></tr>
           <tr><td>Saldo</td>	<td>  : <input type=text name='saldo' size='50'></td></tr>
-          <tr><td>Tanggal Transfer</td>	<td>  : <input type=text name='tanggal_transfer' size='50'></td></tr>          
+          <tr><td>Tanggal Transfer</td>	<td>  : <input type=text name='tanggal_transfer' size='50'></td></tr>
           <tr><td colspan=2><input type=submit class=tombol value=Simpan>
                             <input type=button class=tombol value=Batal onclick=self.history.back()></td></tr>
           </table></form><br><br><br>";
      break;
-    
+
   case "edit":
     $edit = mysql_query("SELECT * FROM saldo WHERE id_saldo='$_GET[id]'");
     $r    = mysql_fetch_array($edit);
@@ -61,7 +81,7 @@ switch($_GET[act]){
           <tr><td colspan=2><input type=submit class=tombol value=Update>
                             <input type=button class=tombol value=Batal onclick=self.history.back()></td></tr>
           </table></form>";
-    break;  
+    break;
 }
 }
 ?>
