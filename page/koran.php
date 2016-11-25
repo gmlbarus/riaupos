@@ -91,6 +91,14 @@ if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isse
 			$tombol = "";
 		}
 
+		$query = "SELECT SUM(`saldo`) as `sisa_saldo` FROM `saldo` WHERE `invoice` = '{$o['invoice']}'";
+
+		$result = mysql_query($query);
+		$r = mysql_fetch_array($result);
+
+		$saldo = ($r['sisa_saldo'] === NULL) ? 0 : $r['sisa_saldo'];
+		mysql_free_result($result);
+
 		echo "
 		<hr color='#000000' size='1'>
 		<br><br>
@@ -157,7 +165,13 @@ if (isset($_SESSION[basyenkuser]) and isset($_SESSION[basyenkpassword]) and isse
 		echo "</b></td>
 			</tr>
 			</tbody>
-		</table>";
+		</table></br>";
+
+		/* Sisa Saldo */
+		echo '<div class="clearfix" style="padding:15px; background-color:#125e9d">
+			<div style="width:30%; float: left;"><b style="color:#fefffc">Sisa Saldo Anda</b></div>
+			<div style="width:70%"><b style="color:#fefffc">Rp.'. $saldo .'</b></div>
+		</div>';
 
 		echo "</form>
 		<br>";
