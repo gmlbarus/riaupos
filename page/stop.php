@@ -19,5 +19,6 @@ else{
 
 
 
-echo "<script>alert('Terima kasih telah berlangganan dengan kami. {$message}');</script>";
+echo "<script>alert('Terima kasih telah berlangganan dengan kami. {$message}');
+window.location=('media.php?page=logout');</script>";
 ?>
